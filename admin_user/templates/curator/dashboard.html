@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <!-- Bootstrap CSS -->
+  <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
+  <!-- Custom CSS -->
+  <style>
+ .clocks-container {
+  display: flex;
+  gap: 30px;
+}
+
+.clock-box {
+  background: rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.clock-box h2 {
+  margin: 0 0 10px;
+  font-size: 1.5rem;
+}
+
+#indian-clock-ampm, #indian-clock-24hr {
+  font-size: 3rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.club-details 
+{
+  font-size: 0.6em !important;
+  
+}
+
+.club-details .row>div
+{
+  padding: 1.2em 1em;
+  text-transform: uppercase;
+}
+  </style>
+</head>
+
+<body>
+  <!-- Navigation bar -->
+  {% include "curator/menu.html" %}
+
+  <!-- Main content area -->
+  <div class="container mt-4">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-lg-3 col-sm-12">
+        <div class="card mb-3 shadow">
+          <div class="card-body">
+            <h5 class="card-title bg-danger text-center p-3 rounded text-white">ORGANIZATION/CLUB</h5>
+           <hr>
+           <ul class="list-group club-details">
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-lg-4 col-sm-12 text-center rounded" style="background-color: rgb(9, 108, 108);color: white;">
+               CLUB
+                </div>
+                <div class="col rounded ms-1" style="background-color:rgb(2, 12, 12) ;color: white;width: 100%;">
+                  {{admin.name}}
+
+                </div>
+              </div>
+             
+            </li>
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-lg-4 col-sm-12 text-center rounded" style="background-color: rgb(9, 108, 108);color: white;">
+               Email-id
+                </div>
+                <div class="col rounded ms-1" style="background-color:rgb(2, 12, 12) ;color: white;width: 100%;">
+                  {{admin.email}}
+
+                </div>
+              </div>
+            </li>
+          
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-lg-4 col-sm-12 text-center rounded" style="background-color: rgb(9, 108, 108);color: white;">
+               Address
+                </div>
+                <div class="col rounded ms-1" style="background-color:rgb(2, 12, 12) ;color: white;width: 100%;">
+                  {{admin.address}}
+
+                </div>
+              </div>
+            </li>
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-lg-4 col-sm-12 text-center rounded" style="background-color: rgb(9, 108, 108);color: white;">
+               Mobile No.
+                </div>
+                <div class="col rounded ms-1" style="background-color:rgb(2, 12, 12) ;color: white;width: 100%;">
+                  {{admin.mobile}}
+
+                </div>
+              </div>
+            </li>
+          </ul>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title bg-danger text-center p-3 rounded text-white">Curator</h5>
+           <hr>
+           <ul class="list-group club-details">
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-lg-4 col-sm-12 text-center rounded" style="background-color: rgb(9, 108, 108);color: white;">
+               Name
+                </div>
+                <div class="col rounded ms-1" style="background-color:rgb(2, 12, 12) ;color: white;width: 100%;">
+                  {{user.name}}
+
+                </div>
+              </div>
+             
+            </li>
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-lg-4 col-sm-12 text-center rounded" style="background-color: rgb(9, 108, 108);color: white;">
+               Email-id
+                </div>
+                <div class="col rounded ms-1" style="background-color:rgb(2, 12, 12) ;color: white;width: 100%;">
+                  {{user.email}}
+
+                </div>
+              </div>
+            </li>
+          
+          
+            <li class="list-group-item">
+              <div class="row">
+                <div class="col-lg-4 col-sm-12 text-center rounded" style="background-color: rgb(9, 108, 108);color: white;">
+               Mobile No.
+                </div>
+                <div class="col rounded ms-1" style="background-color:rgb(2, 12, 12) ;color: white;width: 100%;">
+                  {{user.mobile}}
+
+                </div>
+              </div>
+            </li>
+          </ul>
+          </div>
+          </div>
+        
+       
+      </div>
+      <!-- Main content area -->
+      <div class="col-lg-9 col-sm-12">
+        <div class="card">
+            <div class="card-body text-center">
+              <div class="row bg-danger text-white rounded pt-2">
+              <h5 class="card-title col-3 fs-6">Today</h5>
+              <h5 class="card-title col-3 fs-6">Min temperature</h5>
+              <h5 class="card-title col-3 fs-6">Max temperature</h5>
+              <h5 class="card-title col-3 fs-6">Forecast</h5>
+            </div>
+              <div class="row bg-dark text-white rounded p-3">
+              <h5 class="card-title col-3 fs-6 current-date"></h5>
+              <h5 class="card-title col-3 fs-6" id="min_temp">Main Content</h5>
+              <h5 class="card-title col-3 fs-6" id="max_temp">Main Content</h5>
+              <h5 class="card-title col-3 fs-6" id="forecast">Main Content</h5>
+            </div>
+              <!-- <p class="card-text">Your main dashboard content goes here.</p> -->
+              <hr>
+              <div class="clocks-container d-flex justify-content-between">
+                <div class="clock-box">
+                  <h2>Indian Time (AM/PM)</h2>
+                  <div id="indian-clock-ampm"></div>
+                </div>
+                <div class="clock-box">
+                  <h2>Indian Time (24-Hour)</h2>
+                  <div id="indian-clock-24hr"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS bundle (optional) -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+    crossorigin="anonymous"></script> -->
+  <!-- Your custom scripts -->
+  <script>
+    changeMenuTitle("Club Dashboard")
+  </script>
+  <script src="{% static 'admin_user/js/script.js' %}"></script>
+
+  <script>
+
+    const getWeather = (y, m, d) => {
+
+      // Define your API key, location, and the date you want to get the forecast for
+      const apiKey = 'f201a1e4b5cf4e87a66103535240211';
+      const loc = 'Nagpur';
+      const date = `${y}/${m}/${d}` // Replace with your desired date (YYYY-MM-DD)
+
+      // Construct the API URL for the forecast
+      const url = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${loc}&dt=${date}&aqi=no`;
+
+      // Fetch the weather data
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          // Extract the forecast data for the day
+          const forecast = data.forecast.forecastday[0].day;
+
+          // Get the min, max temperature and weather condition description
+          const minTemp = forecast.mintemp_c;
+          const maxTemp = forecast.maxtemp_c;
+          const condition = forecast.condition.text;
+
+          document.querySelector(".current-date").innerHTML =  `${ String(y).padStart(2, '0')}/${ String(m).padStart(2, '0')}/${ String(d).padStart(2, '0')}` 
+          document.getElementById("min_temp").innerHTML = minTemp
+          document.getElementById("max_temp").innerHTML = maxTemp
+          document.getElementById("forecast").innerHTML = condition
+
+        })
+        .catch(error => console.error('Error fetching weather data:', error));
+    }
+
+    const d = new Date()
+    getWeather(d.getFullYear(), d.getMonth()+1, d.getDate())
+
+
+  // Function to update Indian Time (AM/PM format)
+function updateIndianClockAMPM() {
+  const ampmClockElement = document.getElementById('indian-clock-ampm');
+
+  const now = new Date();
+  const utcOffsetInMilliseconds = 5.5 * 60 * 60 * 1000; // IST is UTC +5:30
+  const indianTime = new Date(now.getTime() + now.getTimezoneOffset() * 60000 + utcOffsetInMilliseconds);
+
+  let hours = indianTime.getHours();
+  const minutes = String(indianTime.getMinutes()).padStart(2, '0');
+  const seconds = String(indianTime.getSeconds()).padStart(2, '0');
+
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12 || 12; // Convert to 12-hour format
+
+  ampmClockElement.textContent = `${hours}:${minutes}:${seconds} ${ampm}`;
+}
+
+// Function to update Indian Time (24-hour format)
+function updateIndianClock24Hr() {
+  const clock24hrElement = document.getElementById('indian-clock-24hr');
+
+  const now = new Date();
+  const utcOffsetInMilliseconds = 5.5 * 60 * 60 * 1000; // IST is UTC +5:30
+  const indianTime = new Date(now.getTime() + now.getTimezoneOffset() * 60000 + utcOffsetInMilliseconds);
+
+  const hours = String(indianTime.getHours()).padStart(2, '0');
+  const minutes = String(indianTime.getMinutes()).padStart(2, '0');
+  const seconds = String(indianTime.getSeconds()).padStart(2, '0');
+
+  clock24hrElement.textContent = `${hours}:${minutes}:${seconds}`;
+}
+
+// Update both clocks every second
+setInterval(updateIndianClockAMPM, 1000);
+setInterval(updateIndianClock24Hr, 1000);
+
+// Initial calls to display immediately
+updateIndianClockAMPM();
+updateIndianClock24Hr();
+
+  </script>
+</body>
+
+</html>

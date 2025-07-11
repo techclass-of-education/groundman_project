@@ -1,0 +1,1997 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Match Entry Form</title>
+    <!-- Bootstrap CSS -->
+    <!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">-->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        label {
+            font-weight: 700;
+        }
+
+        input,
+        label,
+        select {
+            font-size: 70% !important;
+        }
+    </style>
+
+    <script>
+
+        const getWeather = (textField) => {
+
+            // Define your API key, location, and the date you want to get the forecast for
+            const apiKey = 'f201a1e4b5cf4e87a66103535240211';
+            const loc = 'Nagpur';
+            const date = textField.value // Replace with your desired date (YYYY-MM-DD)
+
+            // Construct the API URL for the forecast
+            const url = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${loc}&dt=${date}&aqi=no`;
+
+            // Fetch the weather data
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    // Extract the forecast data for the day
+                    const forecast = data.forecast.forecastday[0].day;
+
+                    // Get the min, max temperature and weather condition description
+                    const minTemp = Math.ceil(forecast.mintemp_c);
+                    const maxTemp = Math.ceil(forecast.maxtemp_c);
+                    const condition = forecast.condition.text;
+
+                    document.getElementById("min_temp").value = minTemp
+                    document.getElementById("max_temp").value = maxTemp
+                    document.getElementById("forecast").value = condition
+
+                })
+                .catch(error => console.error('Error fetching weather data:', error));
+        }
+
+    </script>
+
+</head>
+
+<body>
+    {% include "admin_user/menu.html" %}
+    <div class="container mt-5">
+        <!--    <h2 class="mb-4"></h2>-->
+
+        <ul class="list-group">
+            <li class="list-group-item bg-info display-6 text-white pb-3">
+                Match Entry Form
+            </li>
+            <li class="list-group-item">
+                <form method="POST" class="row g-3">
+                    {% csrf_token %}
+
+                    <!-- Match Type -->
+                    <div class="col-md-6">
+                        <label for="match_type" class="form-label">Match Type</label>
+                        <select name="match_type" id="match_type" class="form-select" onchange="toggleFields()">
+                            <option value="">Select Match Type</option>
+                            <option value="Multidays">Multidays</option>
+                            <option value="One Day">One Day</option>
+                            <option value="T20">T20</option>
+                        </select>
+                    </div>
+
+                    <!-- Tournament Name -->
+                    <div class="col-md-6">
+                        <label for="name_tournament" class="form-label">Name of Tournament</label>
+                        <input type="text" name="name_tournament" value="{{match.2}}" placeholder="Tournament Name"
+                            class="form-control" id="name_tournament">
+                    </div>
+
+                    <!-- Ground ID -->
+                    <div class="col-md-6">
+                        <label id="ground_id_label" class="bg-dark text-white px-3 py-1">Ground Id: {{match.12}}</label>
+                        <input type="hidden" name="ground_id_text" id="ground_id_text" value="{{match.12}}" />
+                        <br>
+                        <label for="ground_id" class="form-label">Select Ground:</label>
+                        <select id="ground_id" name="ground_id" class="form-control"></select>
+
+                    </div>
+
+                    <!-- Pitch ID -->
+                    <div class="col-md-6">
+                        <label id="pitch_id_label" class="bg-dark text-white px-3 py-1"></label>
+                        <input type="hidden" name="pitch_id_text"  id="pitch_id_text" value="{{match.11}}" />
+                        <br>
+                        <label for="pitch_id" class="form-label">Select Pitch:</label>
+                        <select id="pitch_id" name="pitch_id" class="form-control"></select>
+                    </div>
+
+                    <!-- Team 1 -->
+                    <div class="col-md-6">
+                        <label for="team1" class="form-label">Team 1</label>
+                        <input type="text" name="team1" value="{{match.3}}" class="form-control" placeholder="Team Name"
+                            id="team1">
+                    </div>
+
+                    <!-- Team 2 -->
+                    <div class="col-md-6">
+                        <label for="team2" class="form-label">Team 2</label>
+                        <input type="text" name="team2" value="{{match.4}}" class="form-control" placeholder="Team Name"
+                            id="team2">
+                    </div>
+
+                    <!-- Preparation Date -->
+                    <div class="col-md-6">
+                        <label for="preparation_date" class="form-label">Preparation Date</label>
+                        <input type="date" value="{{match.5}}" onchange="getWeather(this)" name="preparation_date"
+                            class="form-control" id="preparation_date">
+                    </div>
+
+                    <!-- Match Date / From Date / To Date -->
+                    <div class="col-md-6" id="match-date-div">
+                        <label for="match_date" class="form-label">Match Date</label>
+                        <input type="date" value="{{match.6}}" name="match_date" class="form-control" id="match_date" {%if match.1 == 'Multidays' %}disabled{%endif%}>
+                    </div>
+
+                    <div class="col-md-6" id="match-date-div">
+                        <label for="nuteral_curator" class="form-label">Nuteral Curator</label>
+                        <input type="date" name="nuteral_curator" value="{{match.63}}" class="form-control" id="nuteral_curator">
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col">
+                                    <label for="min_temp" class="form-label">Minimum Temprature °C</label>
+                                    <input type="text" id="min_temp" value="{{match.16}}"
+                                        placeholder="Minimum Temprature" name="min_temp" class="form-control">
+
+                                </div>
+                                <div class="col">
+                                    <label for="max_temp" class="form-label">Maximum Temprature °C</label>
+                                    <input type="text" placeholder="Maximum Temprature" id="max_temp" name="max_temp"
+                                        value="{{match.17}}" class="form-control">
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="forecast" class="form-label">Forecast Prediction Available:</label>
+                            <textarea id="forecast" name="forecast" placeholder="Forecast Prediction Available"
+                                class="form-control">{{match.18}}</textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6" id="from-date-div">
+                        <label for="from_date" class="form-label">From Date</label>
+                        <input type="date" name="from_date" value="{{match.7}}" class="form-control" id="from_date" {%if match.1 == 'One Day' or match.1 == 'T20' %}disabled{%endif%}>
+                    </div>
+
+                    <div class="col-md-6" id="to-date-div">
+                        <label for="to_date" class="form-label">To Date</label>
+                        <input type="date" name="to_date" value="{{match.8}}" class="form-control" id="to_date" {%if match.1 == 'One Day' or match.1 == 'T20' %}disabled{%endif%}>
+                    </div>
+
+                    <!-- Days Count -->
+                    <div class="col-md-6">
+                        <label for="days_count" class="form-label">Days Count</label>
+                        <input type="number" name="days_count" readonly class="form-control" placeholder="Total days"
+                            value="{{match.9}}" id="days_count" value="1">
+                    </div>
+
+                    <!-- Start Time -->
+                    <div class="col-md-6">
+                        <label for="start_time" class="form-label">Match Start Time</label>
+                        <input type="time" name="start_time" value="{{match.10}}" class="form-control" id="start_time">
+                    </div>
+
+                    <!-- Is Pitch Level -->
+                    <div class="col-md-6 form-check">
+                        <input type="checkbox" name="is_pitch_level" class="form-check-input" id="is_pitch_level" {% if match.13 == "1" %}checked{% endif %}>
+                        <label for="is_pitch_level" class="form-check-label">Is Pitch Level?</label>
+                    </div>
+
+                    <!-- Lawn Height -->
+                    <div class="col-md-6">
+                        <label for="lawn_height" class="form-label">Lawn Height (mm)</label>
+                        <input type="number" name="lawn_height" value="{{match.14}}" step="0.01" class="form-control"
+                            placeholder="Lawn Height" id="lawn_height">
+                    </div>
+
+                    <!-- Grass Cover -->
+                    <div class="col-md-6">
+                        <label for="grass_cover" class="form-label">Grass Cover</label>
+                        <select name="grass_cover" class="form-select" id="grass_cover">
+                            <option value="uniform">Uniform</option>
+                            <option value="partially">Partially</option>
+                            <option value="little/no grass">Little/No Grass</option>
+                        </select>
+                    </div>
+
+                    <!-- Moisture Upto -->
+                    <div class="col-md-6">
+                        <label for="moisture_upto" class="form-label">Moisture Upto (inches)</label>
+                        <input type="number" name="moisture_upto" value="{{match.19}}" step="0.01" class="form-control"
+                            placeholder="Moisture Upto" id="moisture_upto">
+                    </div>
+
+                    <!-- Dew Factor -->
+                    <div class="col-md-6">
+                        <label for="dew_factor" class="form-label">Dew Factor</label>
+                        <input type="text" name="dew_factor" value="{{match.20}}" class="form-control"
+                            placeholder="Dew Factor" id="dew_factor">
+                    </div>
+
+                    <!-- Access Bounce -->
+                    <div class="col-md-6">
+                        <label for="access_bounce" class="form-label">Access Bounce/Clagg Hammer</label>
+                        <input type="text" name="access_bounce" value="{{match.21}}" class="form-control"
+                            placeholder="Access Bounce" id="access_bounce">
+                    </div>
+
+
+                    <hr class="mt-5 bg-info p-1">
+
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item fs-4" role="presentation">
+                            <button class="nav-link active" id="home-tab" data-bs-toggle="tab"
+                                data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane"
+                                aria-selected="true">
+                                <u><b>Pitch Entry</b></u>
+                            </button>
+                        </li>
+                        <li class="nav-item fs-4" role="presentation">
+                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab"
+                                data-bs-target="#profile-tab-pane" type="button" role="tab"
+                                aria-controls="profile-tab-pane" aria-selected="false">
+                                <u><b>Outfield Entry</b></u>
+                            </button>
+                        </li>
+
+                    </ul>
+<script>
+     let rollingEntries = [];
+
+    async function loadRolling() {
+        
+    
+    async function machineName(params) {
+       return await getMachineryName(params)
+    }
+     async function getMachineryName(id) 
+     {
+        try {
+        const response = await axios.get("/usr_admin/machinery/" + id);
+        return response.data.machinery.print_details;
+    } catch (e) {
+        console.log(e);
+        return "Unknown";
+    }
+     }
+   
+     function getSplit(val)
+    {
+        return val.split("__####__").filter(e => e.trim() !== "");
+    }
+   
+        
+const machineryId=getSplit("{{match.22}}")
+const passes=getSplit("{{match.23}}")
+const speed=getSplit("{{match.24}}")
+const unit=getSplit("{{match.76}}")
+const time=getSplit("{{match.28}}")
+const machineType=getSplit("{{match.72}}")
+const operator=getSplit("{{match.73}}")
+
+const namePromises = machineryId.map(id => machineName(id));
+    const names = await Promise.all(namePromises);
+if(machineryId.length>0)
+{
+    for(let i=0;i<machineryId.length;i++)
+{
+ const entry = {
+            machineType:machineType[i],
+            machineryId:machineryId[i],
+            operator:operator[i],
+            speed:speed[i],
+            passes:passes[i],
+            unit:unit[i],
+            time:time[i],
+            machineryName:names[i]
+        };
+// const machineryName=getSplit("{{match.72}}")
+// console.log(entry)
+rollingEntries.push(entry);
+       
+        // console.log(rollingEntries)
+    }
+     updateRollingTable();
+}
+    
+
+}
+loadRolling()
+
+    function addRollingEntry() {
+        const machineType = document.getElementById("roller_machine_type").value;
+        const machineryName = document.getElementById("machinery_name").value;
+        const machineryId = document.getElementById("machinery_id").value;
+        const operator = document.getElementById("roller_machinery_name_operator").value;
+        const speed = document.getElementById("rolling_speed").value;
+        const passes = document.getElementById("no_of_passes").value;
+        const unit = document.getElementById("passes_unit").value;
+        const time = document.getElementById("time_roller").value;
+
+        if (!machineType || !machineryName || !operator || !speed || !passes || !unit || !time) {
+            alert("Please fill all fields before adding.");
+            return;
+        }
+
+        const entry = {
+            machineType,
+            machineryId,
+            machineryName,
+            operator,
+            speed,
+            passes,
+            unit,
+            time
+        };
+
+        rollingEntries.push(entry);
+        updateRollingTable();
+    }
+
+    function updateRollingTable() {
+        const tableBody = document.querySelector("#rollingTable tbody");
+        tableBody.innerHTML = "";
+
+        rollingEntries.forEach(entry => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${entry.machineType}</td>
+                <td>${entry.machineryName}</td>
+                <td>${entry.operator}</td>
+                <td>${entry.speed}</td>
+                <td>${entry.passes}</td>
+                <td>${entry.unit}</td>
+                <td>${entry.time}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+        document.getElementById("rolling_entries_json").value = JSON.stringify(rollingEntries);
+    }
+</script>
+
+<script>
+    let moverEntries = [];
+
+    async function loadMover() {
+    async function machineNameOut(params) {
+       return await getMachineryNameOut(params)
+    }
+     async function getMachineryNameOut(id) 
+     {
+        try {
+        const response = await axios.get("/usr_admin/machinery/" + id);
+        return response.data.machinery.print_details;
+    } catch (e) {
+        console.log(e);
+        return "Unknown";
+    }
+     }
+   
+     function getSplit(val)
+    {
+        return val.split("__####__").filter(e => e.trim() !== "");
+    }
+   
+         
+const machineryId=getSplit("{{match.30}}")
+const unit=getSplit("{{match.70}}")
+const time=getSplit("{{match.32}}")
+const type=getSplit("{{match.68}}")
+const operator=getSplit("{{match.69}}")
+const date=getSplit("{{match.31}}")
+const mowHeight=getSplit("{{match.33}}")
+const duration=getSplit("{{match.71}}")
+
+const namePromises = machineryId.map(id => machineNameOut(id));
+    const names = await Promise.all(namePromises);
+
+
+if(machineryId.length>0)
+{
+    for(let i=0;i<machineryId.length;i++)
+{
+ const entry = {
+            type:type[i],
+            machineryId:machineryId[i],
+            machineryName:names[i],
+            operator:operator[i],
+           duration:duration[i],
+           
+            unit:unit[i],
+            time:time[i],
+            mowHeight:mowHeight[i],
+            date:date[i]
+
+
+          
+        };
+// const machineryName=getSplit("{{match.72}}")
+console.log(entry)
+moverEntries.push(entry);
+console.log(moverEntries)
+}
+updateMoverTable();
+}
+    
+
+}
+loadMover()
+
+     
+    function addMoverEntry() {
+        const type = document.getElementById("mover_machine_type").value;
+        const machineryName = document.getElementById("mover_machinery_name").value;
+        const machineryId = document.getElementById("mover_machinery_id").value;
+        const operator = document.getElementById("mover_machinery_name_operator").value;
+        const mowHeight = document.getElementById("mowing_done_at_mm").value;
+        const unit = document.getElementById("moving_passes_unit").value;
+        const duration = document.getElementById("mowing_duration").value;
+        const time = document.getElementById("time_of_application_mover").value;
+        const date = document.getElementById("date_mowing_done_last").value;
+
+        if (!type || !machineryName || !operator || !unit || !duration || !time || !date || !mowHeight) {
+            alert("Please fill all fields before adding.");
+            return;
+        }
+
+        const entry = {
+            type,
+            machineryId,
+            machineryName,
+            operator,
+            mowHeight,
+            unit,
+            duration,
+            time,
+            date
+        };
+
+        moverEntries.push(entry);
+        updateMoverTable();
+    }
+
+    function updateMoverTable() {
+        const tbody = document.querySelector("#moverTable tbody");
+        tbody.innerHTML = "";
+
+        moverEntries.forEach(e => {
+            tbody.innerHTML += `
+                <tr>
+                    <td>${e.type}</td>
+                    <td>${e.machineryName}</td>
+                    <td>${e.operator}</td>
+                    <td>${e.mowHeight}</td>
+                    <td>${e.duration}</td>
+                    <td>${e.unit}</td>
+                    <td>${e.time}</td>
+                    <td>${e.date}</td>
+                </tr>
+            `;
+        });
+
+        document.getElementById("mover_entries_json").value = JSON.stringify(moverEntries);
+    }
+</script>
+
+
+<script>
+     let outrollingEntries = [];
+
+    async function outloadRolling() {
+        
+    
+    async function machineName(params) {
+       return await getMachineryName(params)
+    }
+     async function getMachineryName(id) 
+     {
+        try {
+        const response = await axios.get("/usr_admin/machinery/" + id);
+        return response.data.machinery.print_details;
+    } catch (e) {
+        console.log(e);
+        return "Unknown";
+    }
+     }
+   
+     function getSplit(val)
+    {
+        return val.split("__####__").filter(e => e.trim() !== "");
+    }
+   
+        
+const machineryId=getSplit("{{match.38}}")
+const passes=getSplit("{{match.39}}")
+const speed=getSplit("{{match.40}}")
+const unit=getSplit("{{match.76}}")
+const time=getSplit("{{match.44}}")
+const machineType=getSplit("{{match.74}}")
+const operator=getSplit("{{match.75}}")
+
+const namePromises = machineryId.map(id => machineName(id));
+    const names = await Promise.all(namePromises);
+if(machineryId.length>0)
+{
+    for(let i=0;i<machineryId.length;i++)
+{
+ const entry = {
+            machineType:machineType[i],
+            machineryId:machineryId[i],
+            operator:operator[i],
+            speed:speed[i],
+            passes:passes[i],
+            unit:unit[i],
+            time:time[i],
+            machineryName:names[i]
+        };
+// const machineryName=getSplit("{{match.72}}")
+// console.log(entry)
+outrollingEntries.push(entry);
+       
+        // console.log(rollingEntries)
+    }
+     outupdateRollingTable();
+}
+    
+
+}
+outloadRolling()
+
+    function addRollingEntry() {
+         const machineType = document.getElementById("out_roller_machine_type").value;
+        const machineryName = document.getElementById("out_machinery_name").value;
+        const machineryId = document.getElementById("out_machinery_id").value;
+        const operator = document.getElementById("out_roller_machinery_name_operator").value;
+        const speed = document.getElementById("out_rolling_speed").value;
+        const passes = document.getElementById("out_no_of_passes").value;
+        const unit = document.getElementById("out_passes_unit").value;
+        const time = document.getElementById("out_time_roller").value;
+
+          if (!machineType || !machineryName || !operator || !speed || !passes || !unit || !time) {
+            alert("Please fill all fields before adding.");
+            return;
+        }
+
+        const entry = {
+            machineType,
+            machineryId,
+            machineryName,
+            operator,
+            speed,
+            passes,
+            unit,
+            time
+        };
+
+        outrollingEntries.push(entry);
+        outupdateRollingTable();
+    }
+
+    function outupdateRollingTable() {
+        const tableBody = document.querySelector("#outrollingTable tbody");
+        tableBody.innerHTML = "";
+
+        outrollingEntries.forEach(entry => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${entry.machineType}</td>
+                <td>${entry.machineryName}</td>
+                <td>${entry.operator}</td>
+                <td>${entry.speed}</td>
+                <td>${entry.passes}</td>
+                <td>${entry.unit}</td>
+                <td>${entry.time}</td>
+            `;
+            tableBody.appendChild(row);
+        });
+
+        document.getElementById("out_rolling_entries_json").value = JSON.stringify(outrollingEntries);
+    }
+</script>
+
+<script>
+    let outmoverEntries = [];
+
+    async function outloadMover() {
+    async function machineNameOutMover(params) {
+       return await getMachineryNameOut(params)
+    }
+     async function getMachineryNameOut(id) 
+     {
+        try {
+        const response = await axios.get("/usr_admin/machinery/" + id);
+        return response.data.machinery.print_details;
+    } catch (e) {
+        console.log(e);
+        return "Unknown";
+    }
+     }
+   
+     function getSplit(val)
+    {
+        return val.split("__####__").filter(e => e.trim() !== "");
+    }
+   
+         
+const machineryId=getSplit("{{match.38}}")
+const unit=getSplit("{{match.66}}")
+const time=getSplit("{{match.48}}")
+const type=getSplit("{{match.64}}")
+const operator=getSplit("{{match.65}}")
+const date=getSplit("{{match.47}}")
+const mowHeight=getSplit("{{match.49}}")
+const duration=getSplit("{{match.67}}")
+
+const namePromises = machineryId.map(id => machineNameOutMover(id));
+    const names = await Promise.all(namePromises);
+
+
+if(machineryId.length>0)
+{
+    for(let i=0;i<machineryId.length;i++)
+{
+ const entry = {
+            type:type[i],
+            machineryId:machineryId[i],
+            machineryName:names[i],
+            operator:operator[i],
+           duration:duration[i],
+           
+            unit:unit[i],
+            time:time[i],
+            mowHeight:mowHeight[i],
+            date:date[i]
+
+
+          
+        };
+// const machineryName=getSplit("{{match.72}}")
+console.log(entry)
+outmoverEntries.push(entry);
+console.log(outmoverEntries)
+}
+outupdateMoverTable();
+}
+    
+
+}
+outloadMover()
+
+    
+
+    function outaddMoverEntry() {
+        const type = document.getElementById("out_mover_machine_type").value;
+        const machineryName = document.getElementById("out_mover_machinery_name").value;
+        const machineryId = document.getElementById("out_mover_machinery_id").value;
+        const operator = document.getElementById("out_mover_machinery_name_operator").value;
+        const mowHeight = document.getElementById("out_mowing_done_at_mm").value;
+        const unit = document.getElementById("out_moving_passes_unit").value;
+        const duration = document.getElementById("out_mowing_duration").value;
+        const time = document.getElementById("out_time_of_application_mover").value;
+        const date = document.getElementById("out_date_mowing_done_last").value;
+
+        if (!type || !machineryName || !operator || !unit || !duration || !time || !date || !mowHeight) {
+            alert("Please fill all fields before adding.");
+            return;
+        }
+
+        const entry = {
+            type,
+            machineryId,
+            machineryName,
+            operator,
+            mowHeight,
+            unit,
+            duration,
+            time,
+            date
+        };
+
+        outmoverEntries.push(entry);
+        outupdateMoverTable();
+    }
+
+    function outupdateMoverTable() {
+        const tbody = document.querySelector("#outmoverTable tbody");
+        tbody.innerHTML = "";
+
+        outmoverEntries.forEach(e => {
+            tbody.innerHTML += `
+                <tr>
+                    <td>${e.type}</td>
+                    <td>${e.machineryName}</td>
+                    <td>${e.operator}</td>
+                    <td>${e.mowHeight}</td>
+                    <td>${e.duration}</td>
+                    <td>${e.unit}</td>
+                    <td>${e.time}</td>
+                    <td>${e.date}</td>
+                </tr>
+            `;
+        });
+
+        document.getElementById("out_mover_entries_json").value = JSON.stringify(outmoverEntries);
+    }
+</script>
+
+
+
+
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel"
+                            aria-labelledby="home-tab" tabindex="0">
+                            <div class="form-group border mt-4 text-dark p-3" style="background-color: #e0fbfc;">
+                                <legend class="w-auto px-2">Pitch Entries</legend>
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-lg-6">
+                                        <fieldset class="form-group border mt-4 text-dark p-3" style="background-color:#98c1d9">
+                                            <legend class="w-auto px-2">Watering</legend>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label for="last_watering_on" class="form-label">Watering
+                                                        On:</label>
+                                                    <input type="date" id="last_watering_on" value="{{match.25}}"
+                                                        name="last_watering_on" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label for="time_of_application" class="form-label">Time of
+                                                        Watering:</label>
+                                                    <input type="time" id="time_of_application"
+                                                        name="time_of_application" value="{{match.27 }}"
+                                                        class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label for="quantity_of_water" class="form-label">Quantity
+                                                        of
+                                                        Water:</label>
+                                                    <input type="text" id="quantity_of_water" name="quantity_of_water"
+                                                        value="{{match.26}}" class="form-control">
+                                                </div>
+                                            </div>
+                                        </fieldset>
+
+                                    </div>
+                                    <div class="col-sm-12 col-lg-6">
+                                         <fieldset class="form-group border mt-4 text-dark p-3" style="background-color:#98c1d9">
+                                            <legend class="w-auto px-2">Rolling</legend>
+                                              <div>
+                                                        <label for="roller_machine_type" class="form-label">Select Machine Type</label>
+                                                         <select class="form-select" id="roller_machine_type"
+                                                                name="roller_machine_type">
+                                                                <option selected>Select Type</option>
+                                                                <option value="passes">Maunal</option>
+                                                                <option value="time">Machenized</option>
+                                                            </select>
+                                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-12 col-sm-12">
+                                                    <label id="machinery_id_label"></label>
+                                                    <br>
+                                                    <label for="machinery_id" class="form-label">Select
+                                                        Roller</label>
+                                                    <input type="hidden" value="{{match.22}}" name="machinery_id"
+                                                        id="machinery_id">
+                                                    <input type="text" name="machinery_name" id="machinery_name"
+                                                        class="form-control" readonly
+                                                        placeholder="Click to select machinery">
+                                                </div>
+                                                <div class="col-lg-12 col-sm-12 d-flex">
+                                                    <button type="button" class="btn btn-dark mt-2 align-self-end"
+                                                        style="font-size:70%"
+                                                        onclick="openMachineryModal('roller')">Select
+                                                        Machinery</button>
+
+                                                </div>
+                                                             <label for="roller_machinery_name_operator"
+                                                                    class="form-label">Operator Name:</label>
+                                                             <input type="text" name="roller_machinery_name_operator"
+                                                                    id="roller_machinery_name_operator" class="form-control">
+ 
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label for="time_of_application" class="form-label">Time of
+                                                    Rolling:</label>
+                                                <input type="time" id="time_of_application_roller" name="time_roller"
+                                                    value="{{match.28}}" class="form-control">
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label for="rolling_speed" class="form-label">Rolling
+                                                        Speed (km/hour):</label>
+                                                    <input type="text" value="{{match.24}}" id="rolling_speed"
+                                                        name="rolling_speed" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                  <div class="col-md-6">
+                                                            <label for="passes-unit" class="form-label">Select
+                                                                Unit:</label>
+                                                            <select class="form-select" id="passes_unit"
+                                                                name="passes_unit">
+                                                                <option selected>Select Unit</option>
+                                                                <option value="passes">Passes</option>
+                                                                <option value="time">Time</option>
+                                                                <option value="hours">Hours</option>
+                                                                <option value="minutes">Minutes</option>
+                                                            </select>
+                                                            </div>
+                                                <div class="col-md-6">
+                                                    <label for="no_of_passes" class="form-label">Number of
+                                                        Passes:</label>
+                                                    <input type="number" value="{{match.23}}" id="no_of_passes"
+                                                        name="no_of_passes" class="form-control">
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                      <div class="col-sm-12 col-lg-6">
+        <h5 class="mt-4">Rolling Entries</h5>
+        <table class="table table-bordered" id="rollingTable">
+            <thead class="table-dark">
+                <tr>
+                    <th>Machine Type</th>
+                    <th>Machinery</th>
+                    <th>Operator</th>
+                    <th>Speed</th>
+                    <th>Passes</th>
+                    <th>Unit</th>
+                    <th>Time</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <input type="hidden" name="rolling_entries_json" id="rolling_entries_json">
+    </div>
+                                </div>
+
+
+
+
+
+
+                                <div class="row mt-4">
+                                      <div>
+                                                        <label for="mover_machine_type" class="form-label">Select Machine Type</label>
+                                                         <select class="form-select" id="mover_machine_type"
+                                                                name="mover_machine_type">
+                                                                <option selected>Select Type</option>
+                                                                <option value="passes">Maunal</option>
+                                                                <option value="time">Machenized</option>
+                                                            </select>
+                                                            </div>
+                                    <div class="col-lg-12 col-sm-12">
+                                        <label id="mover_machinery_id_label"></label>
+                                        <br>
+                                        <label for="mover_machinery_id" class="form-label">Select
+                                            Machinery/Mover</label>
+                                        <input type="hidden" value="{{match.30}}" name="mover_machinery_id"
+                                            id="mover_machinery_id">
+                                        <input type="text" name="mover_machinery_name" id="mover_machinery_name"
+                                            class="form-control" readonly placeholder="Click to select machinery">
+                                    </div>
+                                    <div class="col-lg-12 col-sm-12 d-flex">
+                                        <button type="button" class="btn btn-dark mt-2 align-self-end"
+                                            style="font-size:70%" onclick="openMachineryModal('mover')">Select
+                                            Machinery</button>
+
+                                    </div>
+                                    <label for="mover_machinery_name_operator"
+                                                                    class="form-label">Operator Name:</label>
+                                                             <input type="text" name="mover_machinery_name_operator"
+                                                                    id="mover_machinery_name_operator" class="form-control">
+
+
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="date_mowing_done_last" class="form-label"> 
+                                            Last Mowing Date:</label>
+                                        <input type="date" id="date_mowing_done_last" value="{{match.31}}"
+                                            name="date_mowing_done_last" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="time_of_application_mover" class="form-label">Time of
+                                            Application Mover:</label>
+                                        <input type="time" id="time_of_application_mover" value="{{match.32}}"
+                                            name="time_of_application_mover" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="mowing_done_at_mm" class="form-label">Mowing Height
+                                            (mm):</label>
+                                        <input type="number" id="mowing_done_at_mm" value="{{match.33}}"
+                                            name="mowing_done_at_mm" class="form-control">
+                                    </div>
+                                </div>
+                                 <div class="row">
+                                                             <div class="col-md-6">
+                                                            <label for="moving_passes_unit" class="form-label">Select
+                                                                Unit:</label>
+                                                            <select class="form-select" id="moving_passes_unit" name="moving_passes_unit">
+                                                                <option selected>Select Unit</option>
+                                                                <option value="time">Time</option>
+                                                                <option value="hours">Hours</option>
+                                                                <option value="minutes">Minutes</option>
+                                                            </select>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label for="mowing_duration" class="form-label">Mowing Duration :</label>
+                                                                <input type="number" id="mowing_duration"
+                                                                    name="mowing_duration" class="form-control">
+                                                            </div>
+                                                            
+                                                        </div>
+                                                         <div class="col-sm-12 col-lg-6">
+        <h5 class="mt-4">Mover Entries</h5>
+        <table class="table table-bordered" id="moverTable">
+            <thead class="table-dark">
+                <tr>
+                    <th>Machine Type</th>
+                    <th>Machinery</th>
+                    <th>Operator</th>
+                    <th>Height (mm)</th>
+                    <th>Duration</th>
+                    <th>Unit</th>
+                    <th>Time</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <input type="hidden" name="mover_entries_json" id="mover_entries_json">
+    </div>
+                                <div class="row mt-3">
+                                    <div class="col-sm-12 col-lg-6">
+                                        <div class="input-group mb-3 border rounded">
+                                            <div class="input-group-text bg-light border-0"
+                                                style="background-color:white !important;">
+                                                <input class="form-check-input mt-0 border-left" type="checkbox"
+                                                    aria-label="Checkbox for following text input" {% if match.34 == "1" %}checked{% endif %} name="is_fertilizers_used"
+                                                    id="is_fertilizers_used">
+                                            </div>
+                                            <input type="text" class="form-control border-0 mt-2"
+                                                value="Is Fertilizers Used" style="background-color:white" readonly
+                                                aria-label="Text input with checkbox">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-6">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-lg-6">
+                                                <label for="time_of_application_chemical" class="form-label">Time of
+                                                    Application Chemical:</label>
+                                            </div>
+                                            <div class="col-sm-12 col-lg-6">
+                                                <input type="time" id="time_of_application_chemical"
+                                            name="time_of_application_chemical" class="form-control" value="{{match.55}}">
+                                            </div>
+                                        </div>
+                                        
+                                       
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="fertilizers_details" class="form-label">Chemical
+                                            Details:</label>
+                                        <div class="row">
+                                            <div class="col">
+                                                <select id="fertilizers_details" name="fertilizers_details"
+                                                    class="form-control">
+                                                    <option value="">Select Any Chemical</option>
+                                                  
+                                                </select>
+                                            </div>
+
+                                            <div class="col">
+                                                <input type="text" id="chemical_weight"
+                                                    placeholder="Weight" name="chemical_weight"
+                                                    class="form-control"  value="{{match.59}}">
+                                            </div>
+
+                                            <div class="col">
+                                                <select id="fertilizers_unit"
+                                                    name="fertilizers_unit"
+                                                    class="form-control">
+                                                    <option value="">Select Any Unit</option>
+                                                    <option value="kg">KG</option>
+                                                    <option value="gm">GM</option>
+                                                    <option value="ltr">Liters</option>
+                                                    <option value="ml">Milli Liters</option>
+                                                    <option value="NA">NA</option>
+                                                </select>
+                                            </div>
+
+                                            <div class="col">
+                                                <input type="text" id="chemical_details_remark" placeholder="Remarks"
+                                                    name="chemical_details_remark" class="form-control"
+                                                    value="{{match.36}}">
+                                            </div>
+                                        </div>
+                                            <div class="text-end">
+                                            <button type="button" class="btn btn-sm btn-primary"
+                                                id="addChemicalBtn">+ Add Chemical Entry</button>
+                                        </div>
+                                       <table class="table table-bordered mt-3" id="chemicalTable">
+                                            <thead class="table-dark">
+                                                <tr>
+                                                    <th>Used</th>
+                                                    <th>Time</th>
+                                                    <th>Chemical</th>
+                                                    <th>Weight</th>
+                                                    <th>Unit</th>
+                                                    <th>Remark</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                          <input type="hidden" name="chemical_entries"
+                                            id="chemical_entries">
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="remark_by_groundsman" class="form-label">Remark by
+                                            Groundsman:</label>
+                                        <textarea id="remark_by_groundsman" placeholder="Remarks"
+                                            name="remark_by_groundsman" class="form-control">{{match.37}}</textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <hr>
+                        </div>
+
+                        <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab"
+                            tabindex="0">
+                             <div class="form-group border mt-4 text-dark p-3" style="background-color:#7dcfb6">
+                                <legend class="w-auto px-2">Outfield Entries</legend>
+
+
+
+
+                                <div class="row">
+                                    <div class="col-sm-12 col-lg-6">
+                                         <fieldset class="form-group border mt-4 text-white p-3" style="background-color:#1d4e89">
+                                            <legend class="w-auto px-2">Watering</legend>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label for="out_last_watering_on" class="form-label">Watering
+                                                        On:</label>
+                                                    <input type="date" id="out_last_watering_on" value="{{match.41}}"
+                                                        name="out_last_watering_on" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label for="out_time_of_application" class="form-label">Time
+                                                        of
+                                                        Watering:</label>
+                                                    <input type="time" id="out_time_of_application" value="{{match.43}}"
+                                                        name="out_time_of_application" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label for="out_quantity_of_water" class="form-label">Quantity of
+                                                        Water:</label>
+                                                    <input type="text" id="out_quantity_of_water" value="{{match.42}}"
+                                                        name="out_quantity_of_water" class="form-control">
+                                                </div>
+                                            </div>
+                                        </fieldset>
+
+                                    </div>
+                                    <div class="col-sm-12 col-lg-6">
+                                        <fieldset class="form-group border mt-4 text-white p-3"  style="background-color:#1d4e89">
+                                            <legend class="w-auto px-2">Rolling</legend>
+                                              <div>
+                                                        <label for="out_roller_machine_type" class="form-label">Select Machine Type</label>
+                                                         <select class="form-select" id="out_roller_machine_type"
+                                                                name="out_roller_machine_type">
+                                                                <option selected>Select Type</option>
+                                                                <option value="passes">Maunal</option>
+                                                                <option value="time">Machenized</option>
+                                                            </select>
+                                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-12 col-sm-12">
+                                                    <label id="out_machinery_id_label"></label>
+                                                    <br>
+                                                    <label for="out_machinery_id" class="form-label">Select
+                                                        Roller</label>
+                                                    <input type="hidden" value="{{match.38}}" name="out_machinery_id"
+                                                        id="out_machinery_id">
+                                                    <input type="text" name="out_machinery_name" id="out_machinery_name"
+                                                        class="form-control" readonly
+                                                        placeholder="Click to select machinery">
+                                                </div>
+                                                <div class="col-lg-12 col-sm-12 d-flex">
+                                                    <button type="button" class="btn btn-dark mt-2 align-self-end"
+                                                        style="font-size:70%"
+                                                        onclick="openMachineryModal('out_roller')">Select
+                                                        Machinery</button>
+
+                                                </div>
+   <label for="out_roller_machinery_name_operator" class="form-label">
+                            Operator Name:
+                        </label>
+                                                             <input type="text" name="out_roller_machinery_name_operator"
+                                                                    id="out_roller_machinery_name_operator" class="form-control">
+
+
+                                            </div>
+                                            <div class="col-md-12">
+                                                <label for="out_time_of_application" class="form-label">Time of
+                                                    Rolling:</label>
+                                                <input type="time" id="out_time_of_application_roller"
+                                                    value="{{match.44}}" name="out_time_roller" class="form-control">
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <label for="out_rolling_speed" class="form-label">Rolling
+                                                        Speed:</label>
+                                                    <input type="number" id="out_rolling_speed" value="{{match.40}}"
+                                                        name="out_rolling_speed" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                  <div class="col-md-6">
+                                                            <label for="out_passes-unit" class="form-label">Select
+                                                                Unit:</label>
+                                                            <select class="form-select" id="out_passes_unit"
+                                                                name="out_passes_unit">
+                                                                <option selected>Select Unit</option>
+                                                                <option value="passes">Passes</option>
+                                                                <option value="time">Time</option>
+                                                                <option value="hours">Hours</option>
+                                                                <option value="minutes">Minutes</option>
+                                                            </select>
+
+                                                           
+                                                        </div>
+                                                <div class="col-md-6">
+                                                    <label for="out_no_of_passes" class="form-label">Number of
+                                                        Passes:</label>
+                                                    <input type="number" id="out_no_of_passes" value="{{match.39}}"
+                                                        name="out_no_of_passes" class="form-control">
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </div>
+                                      <div class="col-sm-12 col-lg-4">
+                                                <h5 class="mt-4">Rolling Entries</h5>
+                                                <table class="table table-bordered" id="outrollingTable" style="font-size: 70%;">
+                                                    <thead class="table-dark">
+                                                        <tr>
+                                                            <th>Machine Type</th>
+                                                            <th>Machinery</th>
+                                                            <th>Operator</th>
+                                                            <th>Speed</th>
+                                                            <th>Passes</th>
+                                                            <th>Unit</th>
+                                                            <th>Time</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+
+                                                <input type="hidden" name="out_rolling_entries_json" id="out_rolling_entries_json">
+                                            </div>
+                                </div>
+
+
+
+                                <div class="row mt-4">
+                                       <div>
+                                                        <label for="out_mover_machine_type" class="form-label">Select Machine Type</label>
+                                                         <select class="form-select" id="out_mover_machine_type"
+                                                                name="out_mover_machine_type">
+                                                                <option selected>Select Type</option>
+                                                                <option value="passes">Maunal</option>
+                                                                <option value="time">Machenized</option>
+                                                            </select>
+                                                            </div>
+                                    <div class="col-lg-12 col-sm-12">
+                                        <label id="out_mover_machinery_id_label"></label>
+                                        <br>
+                                        <label for="out_mover_machinery_id" class="form-label">Select
+                                            Machinery/Mover</label>
+                                        <input type="hidden" value="{{match.46}}" name="out_mover_machinery_id"
+                                            id="out_mover_machinery_id">
+                                        <input type="text" name="out_mover_machinery_name" id="out_mover_machinery_name"
+                                            class="form-control" readonly placeholder="Click to select machinery">
+                                    </div>
+                                    <div class="col-lg-12 col-sm-12 d-flex">
+                                        <button type="button" class="btn btn-dark mt-2 align-self-end"
+                                            style="font-size:70%" onclick="openMachineryModal('out_mover')">Select
+                                            Machinery</button>
+
+                                    </div>
+<label for="out_mover_machinery_name_operator"
+                                                                    class="form-label">Operator Name:</label>
+                                                             <input type="text" name="out_mover_machinery_name_operator"
+                                                                    id="out_mover_machinery_name_operator" class="form-control">
+
+
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="out_date_mowing_done_last" class="form-label">Last Mowing Date:</label>
+                                        <input type="date" id="out_date_mowing_done_last" value="{{match.47}}"
+                                            name="out_date_mowing_done_last" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="out_time_of_application_mover" class="form-label">Time of
+                                            Application Mover:</label>
+                                        <input type="time" id="out_time_of_application_mover" value="{{match.48}}"
+                                            name="out_time_of_application_mover" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="out_mowing_done_at_mm" class="form-label">Mowing Height
+                                            (mm):</label>
+                                        <input type="number" id="out_mowing_done_at_mm" value="{{match.49}}"
+                                            name="out_mowing_done_at_mm" class="form-control">
+                                    </div>
+                                </div>
+                                  <div class="row">
+                                                             <div class="col-md-6">
+                                                            <label for="out_moving_passes_unit" class="form-label">Select
+                                                                Unit:</label>
+                                                            <select class="form-select" id="out_moving_passes_unit" name="out_moving_passes_unit">
+                                                                <option selected>Select Unit</option>
+                                                                <option value="time">Time</option>
+                                                                <option value="hours">Hours</option>
+                                                                <option value="minutes">Minutes</option>
+                                                            </select>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label for="out_mowing_duration" class="form-label">Mowing Duration :</label>
+                                                                <input type="number" id="out_mowing_duration"
+                                                                    name="out_mowing_duration" class="form-control">
+                                                            </div>
+                                                            
+                                                        </div>
+                                                          <div class="col-sm-12 col-lg-6">
+        <h5 class="mt-4">Mover Entries</h5>
+        <table class="table table-bordered" id="outmoverTable" style="font-size: 70%;">
+            <thead class="table-dark">
+                <tr>
+                    <th>Machine Type</th>
+                    <th>Machinery</th>
+                    <th>Operator</th>
+                    <th>Height (mm)</th>
+                    <th>Duration</th>
+                    <th>Unit</th>
+                    <th>Time</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+        <input type="hidden" name="out_mover_entries_json" id="out_mover_entries_json">
+    </div>
+                                <div class="row mt-3">
+                                    <div class="col-sm-12 col-lg-6">
+                                        <div class="input-group mb-3 border rounded">
+                                            <div class="input-group-text bg-light border-0"
+                                                style="background-color:white !important;">
+                                                <input class="form-check-input mt-0 border-left" type="checkbox"
+                                                    aria-label="Checkbox for following text input"
+                                                    name="out_is_fertilizers_used" {% if match.50 == "1" %}checked{% endif %}
+                                                    id="out_is_fertilizers_used">
+                                            </div>
+                                            <input type="text" class="form-control border-0 mt-2"
+                                                value="Is Fertilizers Used" style="background-color:white" readonly
+                                                aria-label="Text input with checkbox">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-lg-6">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-lg-6">
+                                                <label for="out_time_of_application_chemical" class="form-label">Time of
+                                                    Application Chemical:</label>
+                                            </div>
+                                            <div class="col-sm-12 col-lg-6">
+                                                <input type="time" id="out_time_of_application_chemical"
+                                            name="out_time_of_application_chemical" class="form-control" value="{{match.56}}">
+                                            </div>
+                                        </div>
+                                        
+                                       
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="out_fertilizers_details" class="form-label">Chemical
+                                            Details:</label>
+                                        <div class="row">
+                                            <div class="col">
+                                                <select id="out_fertilizers_details" name="out_fertilizers_details"
+                                                    class="form-control">
+                                                    <option value="">Select Any Chemical</option>
+                                                 
+                                                </select>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" id="out_chemical_weight" placeholder="Weight"
+                                                    name="out_chemical_weight" class="form-control"  value="{{match.61}}">
+                                            </div>
+                                            <div class="col">
+                                                <select id="out_fertilizers_unit" name="out_fertilizers_unit"
+                                                    class="form-control">
+                                                    <option value="">Select Any Unit</option>
+                                                    <option value="kg">KG</option>
+                                                    <option value="gm">GM</option>
+                                                    <option value="ltr">Liters</option>
+                                                    <option value="ml">Milli Liters</option>
+                                                    <option value="NA">NA</option>
+                                                </select>
+                                            </div>
+                                          
+
+
+                                            <div class="col">
+                                                <input type="text" id="out_chemical_details_remark"
+                                                    placeholder="Remarks" name="out_chemical_details_remark"
+                                                    value="{{match.52}}" class="form-control">
+                                            </div>
+                                        </div>
+                                         <div class="text-end">
+                                            <button type="button" class="btn btn-sm btn-primary"
+                                                id="outaddChemicalBtn">+ Add Chemical Entry</button>
+                                        </div>
+                                        <input type="hidden" name="out_chemical_entries" id="out_chemical_entries">
+ <table class="table table-bordered mt-3" id="outchemicalTable">
+                                            <thead class="table-dark">
+                                                <tr>
+                                                    <th>Used</th>
+                                                    <th>Time</th>
+                                                    <th>Chemical</th>
+                                                    <th>Weight</th>
+                                                    <th>Unit</th>
+                                                    <th>Remark</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label for="out_remark_by_groundsman" class="form-label">Remark by
+                                            Groundsman:</label>
+                                        <textarea id="out_remark_by_groundsman" placeholder="Remarks"
+                                            name="out_remark_by_groundsman" class="form-control">{{match.53}}</textarea>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="brief_match_pitch_assessment" class="form-label">Brief Assessment of the match
+                                pitch:</label>
+                            <textarea placeholder="Brief Assessment of the match pitch" type="text"
+                                id="brief_match_pitch_assessment" name="brief_match_pitch_assessment"
+                                class="form-control">{{match.54}}</textarea>
+                        </div>
+                    </div>
+
+
+                    <div class="col-12">
+                        <button type="submit" name="btnSubmit" value="update" class="btn btn-primary">Update</button>
+                        <!-- <button type="submit" name="btnSubmit" value="save" class="btn btn-primary">Save New</button> -->
+                    </div>
+                </form>
+            </li>
+        </ul>
+
+    </div>
+
+    <!-- Machinery Selection Modal -->
+    <div class="modal fade" id="machineryModal" tabindex="-1" aria-labelledby="machineryModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="machineryModalLabel">Select Machinery</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Equipment Type</th>
+                                <th>Details</th>
+                               
+                              
+                                
+                            </tr>
+                        </thead>
+                        <tbody id="machineryList"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Custom Scripts -->
+    <script>
+
+
+        
+function toggleFields() {
+            var matchType = document.getElementById('match_type').value;
+            if (matchType === 'Multidays') {
+                document.getElementById('from_date').style.display = "block";
+                document.getElementById('to_date').style.display = "block";
+                document.getElementById('match_date').style.display = "none"
+                $(document).ready(function () {
+                    $("#to-date-div").css("display", "block")
+                    $("#from-date-div").css("display", "block")
+                    $("#match-date-div").css("display", "none")
+                })
+                document.getElementById('from_date').disabled = false;
+                document.getElementById('to_date').disabled = false;
+                document.getElementById('match_date').disabled = true;
+            } else {
+                $(document).ready(function () {
+
+                    $("#days_count").val("1")
+                    $("#from_date").val("")
+                    $("#to_date").val("")
+                    $("#to-date-div").css("display", "none")
+                    $("#from-date-div").css("display", "none")
+                    $("#match-date-div").css("display", "block")
+                })
+                document.getElementById('from_date').style.display = "none";
+                document.getElementById('to_date').style.display = "none";
+                document.getElementById('match_date').style.display = "block";
+                document.getElementById('from_date').disabled = true;
+                document.getElementById('to_date').disabled = true;
+                document.getElementById('match_date').disabled = false;
+            }
+        }
+
+        function toggleRollerOptions() {
+            var rollerType = document.getElementById('roller_type').value;
+            if (rollerType === 'manually') {
+                document.getElementById('roller_weight_div').style.display = 'block';
+            } else {
+                document.getElementById('roller_weight_div').style.display = 'none';
+            }
+        }
+    </script>
+
+    <!-- Axios CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+
+
+
+        $(document).ready(function () {
+            axios.get("/usr_admin/get_grounds").then((result) => {
+                $("#ground_id").html("")
+                $("#ground_id").append(`<option value=''>Select Ground</option>`)
+                //                $("#ground_id").append(`<option value='all'>All Grounds</option>`)
+
+                result.data.grounds.forEach(function (g) {
+                    $("#ground_id").append(`<option value='${g.ground[0]}'>${g.ground[6]}</option>`)
+                })
+
+            }).catch((error) => {
+                console.log(error)
+
+            })
+
+
+            function getMachinery(id, label) {
+                axios.get("/usr_admin/machinery/" + id).then((result) => {
+
+                    const m = result.data.machinery
+                    $(`#${label}`).text(`ID: ${m.id} Equipment :${m.equipment_name} ${m.print_details}`)
+                    $(`#${label}`).addClass("bg-dark text-white p-2")
+
+
+
+                }).catch((error) => {
+                    console.log(error)
+
+                })
+            }
+
+           
+
+            getMachinery("{{match.22}}", "machinery_id_label")
+            getMachinery("{{match.30}}", "mover_machinery_id_label")
+            getMachinery("{{match.38}}", "out_machinery_id_label")
+            getMachinery("{{match.46}}", "out_mover_machinery_id_label")
+
+            // Function to calculate the difference in days between two dates
+            function calculateDays() {
+
+                var fromDate = $('#from_date').val();
+                var toDate = $('#to_date').val();
+
+                // Ensure both dates are selected
+                if (fromDate && toDate) {
+                    var from = new Date(fromDate);
+                    var to = new Date(toDate);
+
+                    // Calculate the difference in milliseconds and convert to days
+                    var timeDiff = to - from;
+                    var daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)) + 1;  // +1 to include the start date
+
+                    // Update the days_count field with the calculated days
+                    $('#days_count').val(daysDiff);
+                } else {
+                    // Reset to default if dates are not selected
+                    $('#days_count').val(1);
+                }
+            }
+
+            // Trigger calculation on date change
+            $('#from_date, #to_date').on('change', calculateDays);
+        })
+
+        $("#out_is_fertilizers_used").change(function () {
+            if ($(this).prop("checked") === true) {
+                $("#out_fertilizers_details").prop("required", true)
+            }
+            else {
+                $("#out_fertilizers_details").prop("required", false)
+            }
+
+
+        });
+        $("#is_fertilizers_used").change(function () {
+            if ($(this).prop("checked") === true) {
+                $("#fertilizers_details").prop("required", true)
+            }
+            else {
+                $("#fertilizers_details").prop("required", false)
+            }
+
+
+        });
+
+
+        function addChemicalsToSelect(fertilizers, select) {
+            fertilizers.forEach(function (fert) {
+                const option = document.createElement("option");
+                option.value = fert.id;
+                option.textContent = `${fert.name} (${fert.type})`;
+                select.appendChild(option);
+            });
+        }
+
+        axios.get('/usr_admin/get-fertilizers-json/')
+            .then(function (response) {
+                const fertilizers = response.data.fertilizers;
+                const select = document.getElementById("fertilizers_details");
+                // const ppSelect = document.getElementById("pp_fertilizers_details");
+                const outSelect = document.getElementById("out_fertilizers_details");
+                // const practiceSelect = document.getElementById("practice_fertilizers_details");
+                addChemicalsToSelect(fertilizers, select)
+                // addChemicalsToSelect(fertilizers, ppSelect)
+                addChemicalsToSelect(fertilizers, outSelect)
+                // addChemicalsToSelect(fertilizers, practiceSelect)
+
+            })
+            .catch(function (error) {
+                console.error("Error fetching fertilizers:", error);
+            });
+
+
+
+        $("#ground_id").change(function () {
+            const groundId = $(this).val().trim()
+            $("#ground_id_text").val(groundId)
+            if (groundId == "all") {
+                axios.get(`/usr_admin/get_all_pitches`).then((result) => {
+                    // console.log(result.data.grounds)
+                    $("#pitch_id").html("")
+                    $("#pitch_id").append(`<option value=''>Select Pitch</option>`)
+                    //                    $("#pitch_id").append(`<option value='all'>All Pitches</option>`)
+
+                    result.data.grounds.forEach(function (p) {
+                        $("#pitch_id").append(`<option value='${p.pitches[0]}'>${p.pitches[14]}  ${p.pitches[5]}</option>`)
+                    })
+                }).catch((error) => {
+                    console.log(error)
+
+                })
+            } else {
+                axios.get(`/usr_admin/get_pitches/${groundId}`).then((result) => {
+                    console.log(result.data.grounds)
+                    $("#pitch_id").html("")
+                    $("#pitch_id").append(`<option value=''>Select Pitch</option>`)
+                    //                    $("#pitch_id").append(`<option value='all'>All Pitches</option>`)
+
+                    result.data.grounds.forEach(function (p) {
+                        $("#pitch_id").append(`<option value='${p.pitch[0]}'>${p.pitch[14]}  ${p.pitch[5]}</option>`)
+                    })
+                }).catch((error) => {
+                    console.log(error)
+
+                })
+            }
+
+        })
+
+        $("#pitch_id").change(function () {
+
+
+            const pitchId = $(this).val().trim()
+            const groundId = $("#ground_id").val().trim()
+
+            $("#pitch_id_text").val(pitchId)
+            $("#ground_id_text").val(groundId)
+
+            if (pitchId !== "all") {
+
+                axios.get(`/usr_admin/get_pitch/${pitchId}`).then((result) => {
+                    const pitch = result.data.grounds[0].pitch
+
+                    console.log(pitch)
+                    $("#pitch_location").prop("disabled", false)
+                    $("#pitch_location").prop("readonly", true)
+                    $("#pitch_location").val(pitch[1])
+
+                }).catch((error) => {
+                    console.log(error)
+
+                })
+            } else if (pitchId === "all") {
+                $("#pitch_location").prop("disabled", true)
+            }
+        })
+
+
+
+    </script>
+
+
+</body>
+
+
+<script>
+    $(document).ready(function () {
+
+        $("#match_type").val("{{match.1}}")
+        $("#fertilizers_details").val("{{match.35|default:''}}")
+        $("#out_fertilizers_details").val("{{match.51|default:''}}")
+
+        $("#fertilizers_unit").val("{{match.60|default:''}}")
+        $("#out_fertilizers_unit").val("{{match.62|default:''}}")
+
+
+
+        axios.get(`/usr_admin/get_pitch/{{match.11}}`).then((result) => {
+                            const pitch = result.data.grounds[0].pitch
+        
+                            // console.log(pitch)
+                            if(pitch[4]=="0")
+                            {
+                                $("#pitch_id_label").html("Pitch type="+pitch[5]+" Location="+pitch[14])
+
+                            }
+                            else
+                            {
+                                $("#pitch_id_label").html("pitch no="+pitch[4]+" pitch location="+pitch[14]+" "+pitch[5])
+                            }
+                           
+        
+                        }).catch((error) => {
+                            console.log(error)
+        
+                        })
+
+
+                        axios.get(`/usr_admin/get_ground/{{match.12}}`).then((result) => {
+                            const ground = result.data.ground
+        
+                            // console.log(pitch)
+                          
+                                $("#ground_id_label").html(ground[6])
+
+                           
+                            
+                           
+        
+                        }).catch((error) => {
+                            console.log(error)
+        
+                        })
+    })
+</script>
+
+
+          <script>
+                                    document.getElementById("addChemicalBtn").addEventListener("click", function () {
+                                        const used = document.getElementById("is_fertilizers_used").checked ? "Yes" : "No";
+                                        const time = document.getElementById("time_of_application_chemical").value;
+                                        const chemical = document.getElementById("fertilizers_details").selectedOptions[0].text;
+                                        const weight = document.getElementById("chemical_weight").value;
+                                        const unit = document.getElementById("fertilizers_unit").value;
+                                        const remark = document.getElementById("chemical_details_remark").value;
+
+                                        // if (!chemical || !time) {
+                                        //   alert("Please fill required fields: Chemical and Time.");
+                                        //   return;
+                                        // }
+ document.querySelector("#chemicalTable").addEventListener("click", function (e) {
+                                        if (e.target.classList.contains("delete-row")) {
+                                            e.target.closest("tr").remove();
+                                            updateChemicalData();
+                                        }
+                                    });
+                                        const tableBody = document.querySelector("#chemicalTable tbody");
+
+  
+
+
+                                        const row = document.createElement("tr");
+
+                                        row.innerHTML = `<td>${used}</td>
+                                                        <td>${time}</td>
+                                                        <td>${chemical}</td>
+                                                        <td>${weight}</td>
+                                                        <td>${unit}</td>
+                                                        <td>${remark}</td>
+                                                        <td><button type="button" class="btn btn-sm btn-danger delete-row">X</button></td>`;
+                                        tableBody.appendChild(row);
+
+                                        // Reset inputs
+                                        // document.getElementById("time_of_application_chemical").value = "";
+                                        // document.getElementById("fertilizers_details").value = "";
+                                        // document.getElementById("chemical_weight").value = "";
+                                        // document.getElementById("fertilizers_unit").value = "";
+                                        // document.getElementById("chemical_details_remark").value = "";
+
+                                        updateChemicalData();
+                                    });
+
+                                 
+
+                                    function updateChemicalData() {
+                                        const rows = document.querySelectorAll("#chemicalTable tbody tr");
+                                        const data = Array.from(rows).map(row => {
+                                            const cells = row.querySelectorAll("td");
+                                            return {
+                                                is_fertilizers_used: cells[0].innerText,
+                                                time_of_application_chemical: cells[1].innerText,
+                                                fertilizers_details: cells[2].innerText,
+                                                chemical_weight: cells[3].innerText,
+                                                chemical_unit: cells[4].innerText,
+                                                chemical_details_remark: cells[5].innerText
+                                            };
+                                        });
+                                        document.getElementById("chemical_entries").value = JSON.stringify(data);
+                                    }
+
+                                    // Final form submit validation (optional)
+                                    function handleSubmit(form) {
+                                        const hiddenField = document.getElementById("chemical_entries").value;
+                                        if (!hiddenField || hiddenField === "[]") {
+                                            alert("Please add at least one chemical entry.");
+                                            return false;
+                                        }
+                                        return true;
+                                    }
+                                </script>
+<script>
+    function getSplit(val) {
+        return val.split("__####__").filter(e => e.trim() !== "");
+    }
+
+    function loadChemical() {
+        const timeList = getSplit("{{match.55}}");
+        const chemicalList = getSplit("{{match.35}}");
+        const weightList = getSplit("{{match.59}}");
+        const unitList = getSplit("{{match.60}}");
+        const remarkList = getSplit("{{match.36}}");
+        const fertilizerList = getSplit("{{match.35}}");
+
+        const isUsed = document.getElementById("is_fertilizers_used").checked ? "Yes" : "No";
+ document.querySelector("#chemicalTable").addEventListener("click", function (e) {
+                                        if (e.target.classList.contains("delete-row")) {
+                                            e.target.closest("tr").remove();
+                                            updateChemicalData();
+                                        }
+                                    });
+        for (let i = 0; i < chemicalList.length; i++) {
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+                <td>${isUsed}</td>
+                <td>${timeList[i]}</td>
+                <td>${fertilizerList[i]}</td>
+                <td>${weightList[i]}</td>
+                <td>${unitList[i]}</td>
+                <td>${remarkList[i]}</td>
+                <td><button type="button" class="btn btn-sm btn-danger delete-row">X</button></td>
+            `;
+
+            document.querySelector("#chemicalTable tbody").appendChild(row);
+        }
+
+        updateChemicalData();
+    }
+
+    // Call this on page load
+    loadChemical();
+</script>
+
+ <script>
+                                            document.getElementById("outaddChemicalBtn").addEventListener("click", function () {
+                                                const used = document.getElementById("out_is_fertilizers_used").checked ? "Yes" : "No";
+                                                const time = document.getElementById("out_time_of_application_chemical").value;
+                                                const chemical = document.getElementById("out_fertilizers_details").selectedOptions[0].text;
+                                                const weight = document.getElementById("out_chemical_weight").value;
+                                                const unit = document.getElementById("out_fertilizers_unit").value;
+                                                const remark = document.getElementById("out_chemical_details_remark").value;
+
+                                                // if (!chemical || !time) {
+                                                //   alert("Please fill required fields: Chemical and Time.");
+                                                //   return;
+                                                // }
+    document.querySelector("#outchemicalTable").addEventListener("click", function (e) {
+                                                if (e.target.classList.contains("delete-row")) {
+                                                    e.target.closest("tr").remove();
+                                                    updateOutChemicalData();
+                                                }
+                                            });
+                                                const tableBody = document.querySelector("#outchemicalTable tbody");
+                                                const row = document.createElement("tr");
+
+                                                row.innerHTML = `<td>${used}</td>
+<td>${time}</td>
+<td>${chemical}</td>
+<td>${weight}</td>
+<td>${unit}</td>
+<td>${remark}</td>
+<td><button type="button" class="btn btn-sm btn-danger delete-row">X</button></td>
+`;
+                                                tableBody.appendChild(row);
+
+                                                // Reset inputs
+                                                // document.getElementById("time_of_application_chemical").value = "";
+                                                // document.getElementById("fertilizers_details").value = "";
+                                                // document.getElementById("chemical_weight").value = "";
+                                                // document.getElementById("fertilizers_unit").value = "";
+                                                // document.getElementById("chemical_details_remark").value = "";
+
+                                                updateOutChemicalData();
+                                            });
+
+                                        
+
+                                            function updateOutChemicalData() {
+                                                const rows = document.querySelectorAll("#outchemicalTable tbody tr");
+                                                const data = Array.from(rows).map(row => {
+                                                    const cells = row.querySelectorAll("td");
+                                                    return {
+                                                        out_is_fertilizers_used: cells[0].innerText,
+                                                        out_time_of_application_chemical: cells[1].innerText,
+                                                        out_fertilizers_details: cells[2].innerText,
+                                                        out_chemical_weight: cells[3].innerText,
+                                                        out_chemical_unit: cells[4].innerText,
+                                                        out_chemical_details_remark: cells[5].innerText
+                                                    };
+                                                });
+                                                console.log(data)
+                                                document.getElementById("out_chemical_entries").value = JSON.stringify(data);
+                                            }
+
+                                            // Final form submit validation (optional)
+                                            function handleSubmit(form) {
+                                                const hiddenField = document.getElementById("out_chemical_entries").value;
+                                                if (!hiddenField || hiddenField === "[]") {
+                                                    alert("Please add at least one chemical entry.");
+                                                    return false;
+                                                }
+                                                return true;
+                                            }
+                                        </script>
+                                       
+
+<script>
+    function getSplit(val) {
+        return val.split("__####__").filter(e => e.trim() !== "");
+    }
+
+    function loadOutChemical() {
+        // Example values - replace with actual values from server (via Django template or JS variables)
+        const timeList = getSplit("{{match.56}}");
+        const chemicalList = getSplit("{{match.51}}");
+        const weightList = getSplit("{{match.61}}");
+        const unitList = getSplit("{{match.62}}");
+        const remarkList = getSplit("{{match.52}}");
+        const fertilizerList =  getSplit("{{match.51}}");
+        const used = document.getElementById("out_is_fertilizers_used").checked ? "Yes" : "No";
+
+
+        
+        const tableBody = document.querySelector("#outchemicalTable tbody");
+
+            document.querySelector("#outchemicalTable").addEventListener("click", function (e) {
+                                                if (e.target.classList.contains("delete-row")) {
+                                                    e.target.closest("tr").remove();
+                                                    updateOutChemicalData();
+                                                }
+                                            });
+
+        tableBody.innerHTML = ""; // clear old rows if any
+
+        for (let i = 0; i < timeList.length; i++) {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+                <td>${used}</td>
+                <td>${timeList[i]}</td>
+                <td>${fertilizerList[i]}</td>
+                <td>${weightList[i]}</td>
+                <td>${unitList[i]}</td>
+                <td>${remarkList[i]}</td>
+                <td><button type="button" class="btn btn-sm btn-danger delete-row">X</button></td>
+            `;
+            tableBody.appendChild(row);
+        }
+
+        updateOutChemicalData();
+    }
+
+    // Call this on page load
+    loadOutChemical();
+</script>
+
+
+</html>
