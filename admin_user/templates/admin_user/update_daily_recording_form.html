@@ -609,7 +609,7 @@
                                                             </thead>
                                                             <tbody></tbody>
                                                         </table>
-
+<input type="hidden" name="chemical_entries" id="chemical_entries">
                                             </div>
                                         </div>
 
@@ -1133,6 +1133,8 @@ console.log(fertilizerNames);
                                         </table>
     </div>
                                             </div>
+                                             <input type="hidden" name="pp_chemical_entries"
+                                                    id="pp_chemical_entries">
                                         </div>
                                         <div class="row">
                                             <div class="col-md-12">
@@ -2041,14 +2043,14 @@ console.log(fertilizerNames);
                         })
                     }
 
-                    getMachinery("{{daily.9}}", "machinery_id_label")
-                    getMachinery("{{daily.16}}", "mover_machinery_id_label")
-                    getMachinery("{{daily.24}}", "out_machinery_id_label")
-                    getMachinery("{{daily.31}}", "out_mover_machinery_id_label")
-                    getMachinery("{{daily.39}}", "practice_machinery_id_label")
-                    getMachinery("{{daily.46}}", "practice_mover_machinery_id_label")
-                    getMachinery("{{daily.65}}", "pp_machinery_id_label")
-                    getMachinery("{{daily.72}}", "pp_mover_machinery_id_label")
+                    // getMachinery("{{daily.9}}", "machinery_id_label")
+                    // getMachinery("{{daily.16}}", "mover_machinery_id_label")
+                    // getMachinery("{{daily.24}}", "out_machinery_id_label")
+                    // getMachinery("{{daily.31}}", "out_mover_machinery_id_label")
+                    // getMachinery("{{daily.39}}", "practice_machinery_id_label")
+                    // getMachinery("{{daily.46}}", "practice_mover_machinery_id_label")
+                    // getMachinery("{{daily.65}}", "pp_machinery_id_label")
+                    // getMachinery("{{daily.72}}", "pp_mover_machinery_id_label")
 
                     // Function to calculate the difference in days between two dates
                     function calculateDays() {
@@ -2710,7 +2712,7 @@ if(machineryId.length>0)
             time:time[i],
             machineryName:names[i]
         };
-// const machineryName=getSplit("{{match.72}}")
+// const machineryName=getSplit("{{daily.72}}")
 // console.log(entry)
 rollingEntries.push(entry);
        
@@ -2831,7 +2833,7 @@ if(machineryId.length>0)
 
           
         };
-// const machineryName=getSplit("{{match.72}}")
+// const machineryName=getSplit("{{daily.72}}")
 console.log(entry)
 moverEntries.push(entry);
 console.log(moverEntries)
@@ -2925,13 +2927,13 @@ loadMover()
         }
 
         // Extract values from backend
-        const machineType = getSplit("{{ match.65|default:'' }}");
-        const operator = getSplit("{{ match.66|default:'' }}");
-        const speed = getSplit("{{ match.67|default:'' }}");
-        const passes = getSplit("{{ match.68|default:'' }}");
-        const unit = getSplit("{{ match.90|default:'' }}");
-        const time = getSplit("{{ match.71|default:'' }}");
-        const machineryId = getSplit("{{ match.61|default:'' }}");
+        const machineType = getSplit("{{ daily.65|default:'' }}");
+        const operator = getSplit("{{ daily.66|default:'' }}");
+        const speed = getSplit("{{ daily.67|default:'' }}");
+        const passes = getSplit("{{ daily.68|default:'' }}");
+        const unit = getSplit("{{ daily.90|default:'' }}");
+        const time = getSplit("{{ daily.71|default:'' }}");
+        const machineryId = getSplit("{{ daily.61|default:'' }}");
 
         const namePromises = machineryId.map(id => getMachineryName(id));
         const machineryNames = await Promise.all(namePromises);
@@ -3033,14 +3035,14 @@ loadMover()
         }
 
         // Extract fields from Django template
-        const type = getSplit("{{ match.93|default:'' }}");
-        const machineryId = getSplit("{{ match.62|default:'' }}");
-        const operator = getSplit("{{ match.94|default:'' }}");
-        const mowHeight = getSplit("{{ match.70|default:'' }}");
-        const unit = getSplit("{{ match.95|default:'' }}");
-        const duration = getSplit("{{ match.96|default:'' }}");
-        const time = getSplit("{{ match.69|default:'' }}");
-        const date = getSplit("{{ match.64|default:'' }}");
+        const type = getSplit("{{ daily.93|default:'' }}");
+        const machineryId = getSplit("{{ daily.62|default:'' }}");
+        const operator = getSplit("{{ daily.94|default:'' }}");
+        const mowHeight = getSplit("{{ daily.70|default:'' }}");
+        const unit = getSplit("{{ daily.95|default:'' }}");
+        const duration = getSplit("{{ daily.96|default:'' }}");
+        const time = getSplit("{{ daily.69|default:'' }}");
+        const date = getSplit("{{ daily.64|default:'' }}");
 
         const namePromises = machineryId.map(id => getMachineryName(id));
         const machineryNames = await Promise.all(namePromises);
@@ -3131,12 +3133,12 @@ loadMover()
         }
 
         // Convert "1"/"0" to Yes/No
-        const usedList = getSplit("{{ match.97|default:'' }}").map(v => v === "1" ? "Yes" : "No");
-        const timeList = getSplit("{{ match.91|default:'' }}");
-        const chemIdList = getSplit("{{ match.98|default:'' }}");
-        const weightList = getSplit("{{ match.99|default:'' }}");
-        const unitList = getSplit("{{ match.103|default:'' }}");
-        const remarkList = getSplit("{{ match.107|default:'' }}");
+        const usedList = getSplit("{{ daily.76|default:'' }}").map(v => v === "1" ? "Yes" : "No");
+        const timeList = getSplit("{{ daily.80|default:'' }}");
+        const chemIdList = getSplit("{{ daily.77|default:'' }}");
+        const weightList = getSplit("{{ daily.82|default:'' }}");
+        const unitList = getSplit("{{ daily.86|default:'' }}");
+        const remarkList = getSplit("{{ daily.78|default:'' }}");
 
         // Fetch chemical names for each ID
         async function getChemicalName(id) {
@@ -3288,13 +3290,13 @@ loadMover()
     }
    
         
-const machineryId=getSplit("{{match.38}}")
-const passes=getSplit("{{match.39}}")
-const speed=getSplit("{{match.40}}")
-const unit=getSplit("{{match.76}}")
-const time=getSplit("{{match.44}}")
-const machineType=getSplit("{{match.74}}")
-const operator=getSplit("{{match.75}}")
+const machineryId=getSplit("{{daily.24}}")
+const passes=getSplit("{{daily.25}}")
+const speed=getSplit("{{daily.26}}")
+const unit=getSplit("{{daily.114}}")
+const time=getSplit("{{daily.29}}")
+const machineType=getSplit("{{daily.109}}")
+const operator=getSplit("{{daily.110}}")
 
 const namePromises = machineryId.map(id => machineName(id));
     const names = await Promise.all(namePromises);
@@ -3312,7 +3314,7 @@ if(machineryId.length>0)
             time:time[i],
             machineryName:names[i]
         };
-// const machineryName=getSplit("{{match.72}}")
+// const machineryName=getSplit("{{daily.72}}")
 // console.log(entry)
 outrollingEntries.push(entry);
        
@@ -3381,6 +3383,7 @@ outloadRolling()
     let outmoverEntries = [];
 
     async function outloadMover() {
+        alert()
     async function machineNameOutMover(params) {
        return await getMachineryNameOut(params)
     }
@@ -3401,14 +3404,14 @@ outloadRolling()
     }
    
          
-const machineryId=getSplit("{{match.38}}")
-const unit=getSplit("{{match.66}}")
-const time=getSplit("{{match.48}}")
-const type=getSplit("{{match.64}}")
-const operator=getSplit("{{match.65}}")
-const date=getSplit("{{match.47}}")
-const mowHeight=getSplit("{{match.49}}")
-const duration=getSplit("{{match.67}}")
+const machineryId=getSplit("{{daily.31}}")
+const unit=getSplit("{{daily.99}}")
+const time=getSplit("{{daily.33}}")
+const type=getSplit("{{daily.97}}")
+const operator=getSplit("{{daily.98}}")
+const date=getSplit("{{daily.32}}")
+const mowHeight=getSplit("{{daily.34}}")
+const duration=getSplit("{{daily.100}}")
 
 const namePromises = machineryId.map(id => machineNameOutMover(id));
     const names = await Promise.all(namePromises);
@@ -3433,7 +3436,7 @@ if(machineryId.length>0)
 
           
         };
-// const machineryName=getSplit("{{match.72}}")
+// const machineryName=getSplit("{{daily.72}}")
 console.log(entry)
 outmoverEntries.push(entry);
 console.log(outmoverEntries)
@@ -3513,12 +3516,12 @@ outloadMover()
             return val === "1" ? "Yes" : "No";
         }
 
-        const usedList = getSplit("{{ match.34|default:'' }}").map(toYesNo);       // out_is_fertilizers_used
-        const timeList = getSplit("{{ match.57|default:'' }}");                    // out_time_of_application_chemical
-        const chemicalList = getSplit("{{ match.35|default:'' }}");                // out_fertilizers_details
-        const weightList = getSplit("{{ match.82|default:'' }}");                  // out_chemical_weight
-        const unitList = getSplit("{{ match.86|default:'' }}");                    // out_chemical_unit
-        const remarkList = getSplit("{{ match.36|default:'' }}");                  // out_chemical_details_remark
+        const usedList = getSplit("{{ daily.35|default:'' }}").map(toYesNo);       // out_is_fertilizers_used
+        const timeList = getSplit("{{ daily.55|default:'' }}");                    // out_time_of_application_chemical
+        const chemicalList = getSplit("{{ daily.36|default:'' }}");                // out_fertilizers_details
+        const weightList = getSplit("{{ daily.83|default:'' }}");                  // out_chemical_weight
+        const unitList = getSplit("{{ daily.87|default:'' }}");                    // out_chemical_unit
+        const remarkList = getSplit("{{ daily.37|default:'' }}");                  // out_chemical_details_remark
 
         const tableBody = document.querySelector("#outchemicalTable tbody");
         tableBody.innerHTML = "";
@@ -3635,13 +3638,13 @@ outloadMover()
             }
         }
 
-        const machineType = getSplit("{{ match.112|default:'' }}");  // practice_roller_machine_type
-        const operator = getSplit("{{ match.113|default:'' }}");     // practice_roller_machinery_name_operator
-        const speed = getSplit("{{ match.42|default:'' }}");         // practice_rolling_speed
-        const passes = getSplit("{{ match.41|default:'' }}");        // practice_no_of_passes
-        const unit = getSplit("{{ match.117|default:'' }}");         // practice_passes_unit
-        const time = getSplit("{{ match.46|default:'' }}");          // practice_time_roller
-        const machineryId = getSplit("{{ match.40|default:'' }}");   // practice_machinery_id
+        const machineType = getSplit("{{ daily.111|default:'' }}");  // practice_roller_machine_type
+        const operator = getSplit("{{ daily.112|default:'' }}");     // practice_roller_machinery_name_operator
+        const speed = getSplit("{{ daily.41|default:'' }}");         // practice_rolling_speed
+        const passes = getSplit("{{ daily.40|default:'' }}");        // practice_no_of_passes
+        const unit = getSplit("{{ daily.116|default:'' }}");         // practice_passes_unit
+        const time = getSplit("{{ daily.45|default:'' }}");          // practice_time_roller
+        const machineryId = getSplit("{{ daily.39|default:'' }}");   // practice_machinery_id
 
         const namePromises = machineryId.map(id => getMachineryName(id));
         const machineryNames = await Promise.all(namePromises);
@@ -3736,14 +3739,14 @@ outloadMover()
             }
         }
 
-        const type = getSplit("{{ match.94|default:'' }}");              // practice_mover_machine_type
-        const operator = getSplit("{{ match.95|default:'' }}");          // practice_mover_machinery_name_operator
-        const mowHeight = getSplit("{{ match.50|default:'' }}");         // practice_mowing_done_at_mm
-        const unit = getSplit("{{ match.96|default:'' }}");              // practice_moving_passes_unit
-        const duration = getSplit("{{ match.97|default:'' }}");          // practice_mowing_duration
-        const time = getSplit("{{ match.49|default:'' }}");              // practice_time_of_application_mover
-        const date = getSplit("{{ match.48|default:'' }}");              // practice_date_mowing_done_last
-        const machineryId = getSplit("{{ match.47|default:'' }}");       // practice_mover_machinery_id
+        const type = getSplit("{{ daily.94|default:'' }}");              // practice_mover_machine_type
+        const operator = getSplit("{{ daily.95|default:'' }}");          // practice_mover_machinery_name_operator
+        const mowHeight = getSplit("{{ daily.50|default:'' }}");         // practice_mowing_done_at_mm
+        const unit = getSplit("{{ daily.96|default:'' }}");              // practice_moving_passes_unit
+        const duration = getSplit("{{ daily.97|default:'' }}");          // practice_mowing_duration
+        const time = getSplit("{{ daily.49|default:'' }}");              // practice_time_of_application_mover
+        const date = getSplit("{{ daily.48|default:'' }}");              // practice_date_mowing_done_last
+        const machineryId = getSplit("{{ daily.47|default:'' }}");       // practice_mover_machinery_id
 
         const namePromises = machineryId.map(id => getMachineryName(id));
         const machineryNames = await Promise.all(namePromises);
@@ -3833,12 +3836,12 @@ outloadMover()
             return val === "1" ? "Yes" : "No";
         }
 
-        const usedList = getSplit("{{ match.51|default:'' }}").map(convertToYesNo);         // practice_is_fertilizers_used
-        const timeList = getSplit("{{ match.56|default:'' }}");                             // practice_time_of_application_chemical
-        const chemicalList = getSplit("{{ match.52|default:'' }}");                         // practice_fertilizers_details
-        const weightList = getSplit("{{ match.83|default:'' }}");                           // practice_chemical_weight
-        const unitList = getSplit("{{ match.87|default:'' }}");                             // practice_chemical_unit
-        const remarkList = getSplit("{{ match.53|default:'' }}");                           // practice_chemical_details_remark
+        const usedList = getSplit("{{ daily.51|default:'' }}").map(convertToYesNo);         // practice_is_fertilizers_used
+        const timeList = getSplit("{{ daily.56|default:'' }}");                             // practice_time_of_application_chemical
+        const chemicalList = getSplit("{{ daily.52|default:'' }}");                         // practice_fertilizers_details
+        const weightList = getSplit("{{ daily.83|default:'' }}");                           // practice_chemical_weight
+        const unitList = getSplit("{{ daily.87|default:'' }}");                             // practice_chemical_unit
+        const remarkList = getSplit("{{ daily.53|default:'' }}");                           // practice_chemical_details_remark
 
         const tableBody = document.querySelector("#practiceChemicalTable tbody");
         tableBody.innerHTML = "";
