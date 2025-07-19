@@ -5,6 +5,7 @@ from . import views
 urlpatterns = [
 path('', views.login, name='login'),  # Root URL
 path('login', views.login, name='login_org'),  # Root URL
+path('groundform', views.groundform, name='groundform'),  # Root URL
 path('curator/login', views.curatorLogin, name='login_curator'),  # Root URL
 path('groundman/login', views.groundmanLogin, name='login_groundman'),  # Root URL
 path('scorer/login', views.scorerLogin, name='login_scorer'),  # Root URL

@@ -61,7 +61,7 @@
               <div class="d-flex justify-content-between align-items-center">
                 <div>
                   <h6 class="card-title">Club Username</h6>
-                  <h3 class="mb-0" style="font-size: 1.3em;">{{user.name}}</h3>
+                  <h3 class="mb-0">User{{user.name}}</h3>
                 </div>
 
                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -75,7 +75,6 @@
             </div>
           </div>
         </div>
-        
         <!-- <div class="col-xl-3 col-sm-6">
           <div class="card bg-warning text-white">
             <div class="card-body">
@@ -102,55 +101,55 @@
             </div>
           </div>
         </div> -->
-     
       </div>
 
       <!-- Charts Row -->
       <div class="row mt-4">
         <div class="col-4">
 
-          <div class="card admin-profile-card-vibrant shadow-lg rounded-4 border-0"
-            style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(6px);">
+       <div class="card admin-profile-card-vibrant shadow-lg rounded-4 border-0"
+     style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(6px);">
+  
+  <!-- Header with Gradient -->
+  <div class="profile-header-vibrant text-center p-4 text-white rounded-top"
+       style="background: linear-gradient(90deg, rgba(0,198,255,0.85) 0%, rgba(0,114,255,0.85) 100%);">
+    <!-- Optional Image -->
+    <!-- <img src="https://via.placeholder.com/110/f8f9fa/343a40" alt="Admin Profile Picture" class="rounded-circle mb-3" style="width: 100px;"> -->
+    <h5 class="card-title fw-bold fs-5 mb-0">{{ user.username }}</h5>
+    <p class="mb-0 fs-6">CLUB ADMIN</p>
+  </div>
 
-            <!-- Header with Gradient -->
-            <div class="profile-header-vibrant text-center p-4 text-white rounded-top"
-              style="background: linear-gradient(90deg, rgba(0,198,255,0.85) 0%, rgba(0,114,255,0.85) 100%);">
-              <!-- Optional Image -->
-              <!-- <img src="https://via.placeholder.com/110/f8f9fa/343a40" alt="Admin Profile Picture" class="rounded-circle mb-3" style="width: 100px;"> -->
-              <h5 class="card-title fw-bold fs-5 mb-0">{{ user.username }}</h5>
-              <p class="mb-0 fs-6">CLUB ADMIN</p>
-            </div>
+  <!-- Card Body -->
+  <div class="card-body px-4 py-3" style="background: rgba(255, 255, 255, 0.1);">
+    <div class="table-responsive">
+      <table class="table table-borderless text-start mb-0 text-white">
+        <tbody>
+          <tr>
+            <td><i class="bi bi-envelope me-2 text-info"></i> Email:</td>
+            <td>{{ user.email }}</td>
+          </tr>
+          <tr>
+            <td><i class="bi bi-geo-alt me-2 text-success"></i> Address:</td>
+            <td>{{ user.address }}</td>
+          </tr>
+          <tr>
+            <td><i class="bi bi-telephone me-2 text-warning"></i> Contact:</td>
+            <td>{{ user.mobile }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-            <!-- Card Body -->
-            <div class="card-body px-4 py-3" style="background: rgba(255, 255, 255, 0.1);">
-              <div class="table-responsive">
-                <table class="table table-borderless text-start mb-0 text-white">
-                  <tbody>
-                    <tr>
-                      <td><i class="bi bi-envelope me-2 text-info"></i> Email:</td>
-                      <td>{{ user.email }}</td>
-                    </tr>
-                    <tr>
-                      <td><i class="bi bi-geo-alt me-2 text-success"></i> Address:</td>
-                      <td>{{ user.address }}</td>
-                    </tr>
-                    <tr>
-                      <td><i class="bi bi-telephone me-2 text-warning"></i> Contact:</td>
-                      <td>{{ user.mobile }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <!-- Footer Button -->
-            <div class="card-footer text-center border-0" style="background: rgba(255, 255, 255, 0.08);">
-              <a href="#" class="btn btn-sm text-white px-4"
-                style="background: linear-gradient(90deg, rgba(67,233,123,0.85) 0%, rgba(56,249,215,0.85) 100%); border: none;">
-                <i class="bi bi-person-lines-fill me-1"></i> View Profile
-              </a>
-            </div>
-          </div>
+  <!-- Footer Button -->
+  <div class="card-footer text-center border-0"
+       style="background: rgba(255, 255, 255, 0.08);">
+    <a href="#" class="btn btn-sm text-white px-4"
+       style="background: linear-gradient(90deg, rgba(67,233,123,0.85) 0%, rgba(56,249,215,0.85) 100%); border: none;">
+      <i class="bi bi-person-lines-fill me-1"></i> View Profile
+    </a>
+  </div>
+</div>
 
 
 
@@ -191,62 +190,60 @@
         </div>
         <div class="col-4">
           <div class="card mb-4 shadow-lg border-0 rounded-4">
-            <div class="card-body">
-              <h5 class="card-title text-center p-3 rounded-3 text-white fs-5 fw-semibold"
-                style="background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);">
-                <i class="bi bi-person-badge"></i> CURATOR / GROUNDMAN
-              </h5>
-              <hr>
-              <div class="accordion accordion-flush" id="accordionExample">
-                <!-- CURATORS -->
-                <div class="accordion-item border-start border-4" style="border-color: #4fc3f7;">
-                  <h2 class="accordion-header">
-                    <button class="accordion-button bg-light fw-bold text-primary" type="button"
-                      data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
-                      aria-controls="collapseOne">
-                      <i class="bi bi-person-check me-2 text-info"></i> CURATORS
-                    </button>
-                  </h2>
-                  <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                          <i class="bi bi-check-circle-fill text-primary me-2"></i> Ground Rolling
-                        </li>
-                        <li class="list-group-item">
-                          <i class="bi bi-check-circle-fill text-primary me-2"></i> Pitch Preparation
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- GROUNDMAN -->
-                <div class="accordion-item border-start border-4" style="border-color: #81c784;">
-                  <h2 class="accordion-header">
-                    <button class="accordion-button collapsed bg-light fw-bold text-success" type="button"
-                      data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
-                      aria-controls="collapseTwo">
-                      <i class="bi bi-person-lines-fill me-2 text-success"></i> GROUNDMAN
-                    </button>
-                  </h2>
-                  <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                      <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                          <i class="bi bi-check-circle-fill text-success me-2"></i> Field Marking
-                        </li>
-                        <li class="list-group-item">
-                          <i class="bi bi-check-circle-fill text-success me-2"></i> Watering
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
+  <div class="card-body">
+    <h5 class="card-title text-center p-3 rounded-3 text-white fs-5 fw-semibold"
+        style="background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);">
+      <i class="bi bi-person-badge"></i> CURATOR / GROUNDMAN
+    </h5>
+    <hr>
+    <div class="accordion accordion-flush" id="accordionExample">
+      <!-- CURATORS -->
+      <div class="accordion-item border-start border-4" style="border-color: #4fc3f7;">
+        <h2 class="accordion-header">
+          <button class="accordion-button bg-light fw-bold text-primary" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <i class="bi bi-person-check me-2 text-info"></i> CURATORS
+          </button>
+        </h2>
+        <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <i class="bi bi-check-circle-fill text-primary me-2"></i> Ground Rolling
+              </li>
+              <li class="list-group-item">
+                <i class="bi bi-check-circle-fill text-primary me-2"></i> Pitch Preparation
+              </li>
+            </ul>
           </div>
+        </div>
+      </div>
+
+      <!-- GROUNDMAN -->
+      <div class="accordion-item border-start border-4" style="border-color: #81c784;">
+        <h2 class="accordion-header">
+          <button class="accordion-button collapsed bg-light fw-bold text-success" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <i class="bi bi-person-lines-fill me-2 text-success"></i> GROUNDMAN
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <i class="bi bi-check-circle-fill text-success me-2"></i> Field Marking
+              </li>
+              <li class="list-group-item">
+                <i class="bi bi-check-circle-fill text-success me-2"></i> Watering
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
 
 
         </div>
@@ -466,9 +463,11 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     transform: translateY(-2px);
   }
-
   .admin-profile-card-vibrant {
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-  }
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
 </style>
+
+

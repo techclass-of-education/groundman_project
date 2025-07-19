@@ -858,7 +858,8 @@ def machinery_pass_report(request):
 
 ######################end reports
 
-
+def groundform(request):
+    return render(request,'admin_user/ground_form.html')
 
 def login(request):
     return render(request,'admin_user/org_login.html')
