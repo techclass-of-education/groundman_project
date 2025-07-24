@@ -13,44 +13,162 @@
     </div>
     <ul class="list-unstyled components p-3">
         <li class="active">
-            <a href="#" class="d-flex align-items-center text-white text-decoration-none mb-3">
+            <a  href="/usr_admin/orgdashboard" class="d-flex align-items-center text-white text-decoration-none mb-3">
                 <i class="bi bi-speedometer2 me-2"></i>
                 <span>Dashboard</span>
+            </a>
+        </li>
+        <li class="active">
+            <a   href="/usr_admin/create_admin_user_role" class="d-flex align-items-center text-white text-decoration-none mb-3">
+                <i class="bi bi-speedometer2 me-2"></i>
+                <span>Create Role</span>
             </a>
         </li>
         <li>
             <a href="#userSubmenu" data-bs-toggle="collapse"
                 class="d-flex align-items-center text-white text-decoration-none mb-3">
                 <i class="bi bi-person me-2"></i>
-                <span>User Management</span>
+                <span>State and City</span>
                 <i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul class="collapse list-unstyled" id="userSubmenu">
                 <li>
-                    <a href="#" class="text-white text-decoration-none d-block py-2 ps-4">Profile</a>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/add_state_city">Add</a>
                 </li>
                 <li>
-                    <a href="#" class="text-white text-decoration-none d-block py-2 ps-4">Settings</a>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/list_state_city">List</a>
                 </li>
             </ul>
         </li>
         <li>
-            <a href="#tableSubmenu" data-bs-toggle="collapse"
+            <a href="#userSubmenu1" data-bs-toggle="collapse"
                 class="d-flex align-items-center text-white text-decoration-none mb-3">
-                <i class="bi bi-table me-2"></i>
-                <span>Tables</span>
+                <i class="bi bi-person me-2"></i>
+                <span>Checmicals</span>
                 <i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul class="collapse list-unstyled" id="tableSubmenu">
+            <ul class="collapse list-unstyled" id="userSubmenu1">
                 <li>
-                    <a href="#" class="text-white text-decoration-none d-block py-2 ps-4">Basic Table</a>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/addChemical">Add</a>
                 </li>
                 <li>
-                    <a href="#" class="text-white text-decoration-none d-block py-2 ps-4">Data Table</a>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/getAllChemicals">List</a>
                 </li>
             </ul>
         </li>
-    </ul>
+
+        <li>
+            <a href="#userSubmenu2" data-bs-toggle="collapse"
+                class="d-flex align-items-center text-white text-decoration-none mb-3">
+                <i class="bi bi-person me-2"></i>
+                <span> Ground Recording</span>
+                <i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul class="collapse list-unstyled" id="userSubmenu2">
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/create_ground_master">Add</a>
+                </li>
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/ground_list">List</a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#userSubmenu3" data-bs-toggle="collapse"
+                class="d-flex align-items-center text-white text-decoration-none mb-3">
+                <i class="bi bi-person me-2"></i>
+                <span> Daily Recording</span>
+                <i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul class="collapse list-unstyled" id="userSubmenu3">
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/curator_daily_recording_form">Add</a>
+                </li>
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/curator_daily_recording_list">List</a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#userSubmenu4" data-bs-toggle="collapse"
+                class="d-flex align-items-center text-white text-decoration-none mb-3">
+                <i class="bi bi-person me-2"></i>
+                <span> Match Recording</span>
+                <i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul class="collapse list-unstyled" id="userSubmenu4">
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/matches/insert">Add</a>
+                </li>
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/matches">List</a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#userSubmenu5" data-bs-toggle="collapse"
+                class="d-flex align-items-center text-white text-decoration-none mb-3">
+                <i class="bi bi-person me-2"></i>
+                <span>  Match Scores</span>
+                <i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul class="collapse list-unstyled" id="userSubmenu5">
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/matches">Add/List of Matches</a>
+                </li>
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/matches">List</a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#userSubmenu7" data-bs-toggle="collapse"
+                class="d-flex align-items-center text-white text-decoration-none mb-3">
+                <i class="bi bi-person me-2"></i>
+                <span> Machinery Master</span>
+                <i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul class="collapse list-unstyled" id="userSubmenu7">
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/machinery/insert/">List</a>
+                </li>
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/machinery">List</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#userSubmenu6" data-bs-toggle="collapse"
+                class="d-flex align-items-center text-white text-decoration-none mb-3">
+                <i class="bi bi-person me-2"></i>
+                <span>Reports</span>
+                <i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul class="collapse list-unstyled" id="userSubmenu6">
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/report-match/">Report 1 Match</a>
+                </li>
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/curator-daily-records">Report 2 Daily</a>
+                </li>
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/match-report">Report 3 Match</a>
+                </li>
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/chemicalsReport">Checmicals Report</a>
+                </li>
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/machinery-report">Machineries Report</a>
+                </li>
+            </ul>
+        </li>
+       
+       
+
 </nav>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

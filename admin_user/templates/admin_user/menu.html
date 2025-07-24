@@ -1,5 +1,7 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-  integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.slim.js"
   integrity="sha256-UgvvN8vBkgO0luPSUl2s8TIlOSYRoGFAX4jlCIm9Adc=" crossorigin="anonymous"></script>
@@ -25,15 +27,13 @@
   }
 </style>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<!-- <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container">
     <a class="navbar-brand" href="#" id="menu-page-title">Admin</a>
-    <!-- Toggle button for mobile navigation -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
       aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <!-- Navigation links -->
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
@@ -68,7 +68,6 @@
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="/usr_admin/create_ground_master">Add</a></li>
-            <!--            <li><a class="dropdown-item" href="#">Update</a></li>-->
             <li><a class="dropdown-item" href="/usr_admin/ground_list">List</a></li>
           </ul>
         </li>
@@ -79,32 +78,13 @@
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="/usr_admin/curator_daily_recording_form">Add</a></li>
-            <!--            <li><a class="dropdown-item" href="#">Update</a></li>-->
             <li><a class="dropdown-item" href="/usr_admin/curator_daily_recording_list">List</a></li>
           </ul>
         </li>
 
        
-        <!--          <li class="nav-item">-->
-        <!--            <a class="nav-link" href="/usr_admin/create_ground_master">Create Ground</a>-->
-        <!--          </li>-->
-        <!--          <li class="nav-item">-->
-        <!--            <a class="nav-link" href="/usr_admin/ground_list">Ground List</a>-->
-        <!--          </li>-->
-        <!--          <li class="nav-item">-->
-        <!--            <a class="nav-link" href="/usr_admin/curator_daily_recording_form">Curator Daily Recording</a>-->
-        <!--          </li>-->
+        
 
-        <!--           <li class="nav-item dropdown">-->
-        <!--          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">-->
-        <!--            Ground Recording-->
-        <!--          </a>-->
-        <!--          <ul class="dropdown-menu">-->
-        <!--            <li><a class="dropdown-item" href="/usr_admin/create_ground_master">Add</a></li>-->
-        <!--            <li><a class="dropdown-item" href="#">Update</a></li>-->
-        <!--            <li><a class="dropdown-item" href="/usr_admin/ground_list">List</a></li>-->
-        <!--          </ul>-->
-        <!--        </li>-->
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -113,7 +93,6 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="/usr_admin/matches/insert">Add</a></li>
             <li><a class="dropdown-item" href="/usr_admin/matches">List</a></li>
-            <!--            <li><a class="dropdown-item" href="/usr_admin/matches/update">Update</a></li>-->
           </ul>
         </li>
 
@@ -124,19 +103,8 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="/usr_admin/matches">Add/List of Matches</a></li>
             <li><a class="dropdown-item" href="/usr_admin/matches">List</a></li>
-            <!--            <li><a class="dropdown-item" href="/usr_admin/matches/update">Update</a></li>-->
           </ul>
         </li>
-
-
-        <!--          <li class="nav-item">-->
-        <!--            <a class="nav-link" href="/usr_admin/curator_daily_recording_form">Curator Daily Recording</a>-->
-        <!--          </li>-->
-        <!--          <li class="nav-item">-->
-        <!--            <a class="nav-link" href="/usr_admin/curator_daily_recording_list">Curator Daily Recording List</a>-->
-        <!--          </li>-->
-
-      
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -169,9 +137,9 @@
       </ul>
     </div>
   </div>
-</nav>
+</nav> -->
 
- <nav id="sidebar" class="bg-dark text-white">
+ <!-- <nav id="sidebar" class="bg-dark text-white">
       <div class="sidebar-header p-3">
         <h3 class="fs-4">Dashboard Pro</h3>
       </div>
@@ -215,9 +183,171 @@
           </ul>
         </li>
       </ul>
-    </nav>
+    </nav> -->
 
+<nav id="sidebar" class="bg-dark text-white">
+    <div class="sidebar-header p-3">
+        <h3 class="fs-4">Dashboard Pro</h3>
+    </div>
+    <ul class="list-unstyled components p-3">
+        <li class="active">
+            <a  href="/usr_admin/orgdashboard" class="d-flex align-items-center text-white text-decoration-none mb-3">
+                <i class="bi bi-speedometer2 me-2"></i>
+                <span>Dashboard</span>
+            </a>
+        </li>
+        <li class="active">
+            <a   href="/usr_admin/create_admin_user_role" class="d-flex align-items-center text-white text-decoration-none mb-3">
+                <i class="bi bi-speedometer2 me-2"></i>
+                <span>Create Role</span>
+            </a>
+        </li>
+        <li>
+            <a href="#userSubmenu" data-bs-toggle="collapse"
+                class="d-flex align-items-center text-white text-decoration-none mb-3">
+                <i class="bi bi-person me-2"></i>
+                <span>State and City</span>
+                <i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul class="collapse list-unstyled" id="userSubmenu">
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/add_state_city">Add</a>
+                </li>
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/list_state_city">List</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#userSubmenu1" data-bs-toggle="collapse"
+                class="d-flex align-items-center text-white text-decoration-none mb-3">
+                <i class="bi bi-person me-2"></i>
+                <span>Checmicals</span>
+                <i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul class="collapse list-unstyled" id="userSubmenu1">
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/addChemical">Add</a>
+                </li>
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/getAllChemicals">List</a>
+                </li>
+            </ul>
+        </li>
 
+        <li>
+            <a href="#userSubmenu2" data-bs-toggle="collapse"
+                class="d-flex align-items-center text-white text-decoration-none mb-3">
+                <i class="bi bi-person me-2"></i>
+                <span> Ground Recording</span>
+                <i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul class="collapse list-unstyled" id="userSubmenu2">
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/create_ground_master">Add</a>
+                </li>
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/ground_list">List</a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#userSubmenu3" data-bs-toggle="collapse"
+                class="d-flex align-items-center text-white text-decoration-none mb-3">
+                <i class="bi bi-person me-2"></i>
+                <span> Daily Recording</span>
+                <i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul class="collapse list-unstyled" id="userSubmenu3">
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/curator_daily_recording_form">Add</a>
+                </li>
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/curator_daily_recording_list">List</a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#userSubmenu4" data-bs-toggle="collapse"
+                class="d-flex align-items-center text-white text-decoration-none mb-3">
+                <i class="bi bi-person me-2"></i>
+                <span> Match Recording</span>
+                <i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul class="collapse list-unstyled" id="userSubmenu4">
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/matches/insert">Add</a>
+                </li>
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/matches">List</a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#userSubmenu5" data-bs-toggle="collapse"
+                class="d-flex align-items-center text-white text-decoration-none mb-3">
+                <i class="bi bi-person me-2"></i>
+                <span>  Match Scores</span>
+                <i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul class="collapse list-unstyled" id="userSubmenu5">
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/matches">Add/List of Matches</a>
+                </li>
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/matches">List</a>
+                </li>
+            </ul>
+        </li>
+
+        <li>
+            <a href="#userSubmenu7" data-bs-toggle="collapse"
+                class="d-flex align-items-center text-white text-decoration-none mb-3">
+                <i class="bi bi-person me-2"></i>
+                <span> Machinery Master</span>
+                <i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul class="collapse list-unstyled" id="userSubmenu7">
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/machinery/insert/">List</a>
+                </li>
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/machinery">List</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#userSubmenu6" data-bs-toggle="collapse"
+                class="d-flex align-items-center text-white text-decoration-none mb-3">
+                <i class="bi bi-person me-2"></i>
+                <span>Reports</span>
+                <i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul class="collapse list-unstyled" id="userSubmenu6">
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/report-match/">Report 1 Match</a>
+                </li>
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/curator-daily-records">Report 2 Daily</a>
+                </li>
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/match-report">Report 3 Match</a>
+                </li>
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/chemicalsReport">Checmicals Report</a>
+                </li>
+                <li>
+                    <a class="text-white text-decoration-none d-block py-2 ps-4" href="/usr_admin/machinery-report">Machineries Report</a>
+                </li>
+            </ul>
+        </li>
+       
+       
+
+</nav>
 
 
 
@@ -423,4 +553,3 @@ $(document).ready(function()
 </script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
