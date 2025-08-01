@@ -18,7 +18,7 @@
       <div class="row g-4">
         <!-- Stats Cards -->
         <div class="col-xl-4 col-sm-12">
-          <div class="card bg-danger text-white">
+          <div class="card text-white box-gradient">
             <div class="card-body">
               <div class="d-flex justify-content-between align-items-center">
                 <div>
@@ -37,7 +37,7 @@
           </div>
         </div>
         <div class="col-xl-4 col-sm-12">
-          <div class="card bg-success text-white">
+          <div class="card bg-success text-white box-gradient">
             <div class="card-body">
               <div class="d-flex justify-content-between align-items-center">
                 <div>
@@ -56,7 +56,7 @@
           </div>
         </div>
         <div class="col-xl-4 col-sm-12">
-          <div class="card bg-success text-white">
+          <div class="card bg-warning text-white box-gradient">
             <div class="card-body">
               <div class="d-flex justify-content-between align-items-center">
                 <div>
@@ -75,7 +75,7 @@
             </div>
           </div>
         </div>
-        
+
         <!-- <div class="col-xl-3 col-sm-6">
           <div class="card bg-warning text-white">
             <div class="card-body">
@@ -102,61 +102,104 @@
             </div>
           </div>
         </div> -->
-     
-      </div>
 
+      </div>
+<style>
+  body
+  {
+   /* background: linear-gradient(45deg, #6dace8 40%, #1d66ed 56%) */
+    
+  }
+
+.box-gradient
+{
+  background: linear-gradient(10deg, #1a86eb 40%, #1d66ed 56%)
+}
+
+  .box-bg
+  {
+    background: linear-gradient(45deg, #131a66 , #1121cd )
+  /* background: linear-gradient(to bottom, #6f6f70, #e2e1e3, #c6c6c5);color: #333333; */
+  }
+  .profile-box-title
+  {
+    background-color: rgb(240, 240, 240);color: rgb(2, 2, 2);
+    height: fit-content;
+    align-self: center;
+    font-weight:600 ;
+    font-size: 1.2em;
+  }
+  .profile-box-details
+  {
+     align-self: center;
+    background-color: rgb(32, 193, 142);color: white;
+  }
+  
+</style>
       <!-- Charts Row -->
       <div class="row mt-4">
-        <div class="col-4">
+        <div class="col-lg-4 col-sm-12">
+          <div class="card mb-3 shadow box-bg">
+            <div class="card-body">
+             <h3 class="card-title text-center p-3 rounded text-white"> <i class="bi bi-person-badge"></i> PROFILE</h3>
+              <hr>
+              <ul class="list-group club-details">
+                <li class="list-group-item">
+                  <div class="row">
+                    <div class="col-lg-4 col-sm-12 text-center rounded profile-box-title">
+                      CLUB
+                    </div>
+                    <div class="col rounded ms-1 profile-box-details">
+                      {{user.name}}
 
-          <div class="card admin-profile-card-vibrant shadow-lg rounded-4 border-0"
-            style="background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(6px);">
+                    </div>
+                  </div>
 
-            <!-- Header with Gradient -->
-            <div class="profile-header-vibrant text-center p-4 text-white rounded-top"
-              style="background: linear-gradient(90deg, rgba(0,198,255,0.85) 0%, rgba(0,114,255,0.85) 100%);">
-              <!-- Optional Image -->
-              <!-- <img src="https://via.placeholder.com/110/f8f9fa/343a40" alt="Admin Profile Picture" class="rounded-circle mb-3" style="width: 100px;"> -->
-              <h5 class="card-title fw-bold fs-5 mb-0">{{ user.username }}</h5>
-              <p class="mb-0 fs-6">CLUB ADMIN</p>
+                </li>
+                <li class="list-group-item">
+                  <div class="row">
+                    <div class="col-lg-4 col-sm-12 text-center rounded profile-box-title">
+                      Email-id
+                    </div>
+                    <div class="col rounded ms-1 profile-box-details">
+                      {{user.email}}
+
+                    </div>
+                  </div>
+                </li>
+
+                <li class="list-group-item">
+                  <div class="row">
+                    <div class="col-lg-4 col-sm-12 text-center rounded profile-box-title">
+                      Address
+                    </div>
+                    <div class="col rounded ms-1 profile-box-details">
+                      {{user.address}}
+
+                    </div>
+                  </div>
+                </li>
+                <li class="list-group-item">
+                  <div class="row">
+                    <div class="col-lg-4 col-sm-12 text-center rounded profile-box-title">
+                      Mobile No.
+                    </div>
+                    <div class="col rounded ms-1 profile-box-details">
+                      {{user.mobile}}
+
+                    </div>
+                  </div>
+                </li>
+              </ul>
             </div>
 
-            <!-- Card Body -->
-            <div class="card-body px-4 py-3" style="background: rgba(255, 255, 255, 0.1);">
-              <div class="table-responsive">
-                <table class="table table-borderless text-start mb-0 text-white">
-                  <tbody>
-                    <tr>
-                      <td><i class="bi bi-envelope me-2 text-info"></i> Email:</td>
-                      <td>{{ user.email }}</td>
-                    </tr>
-                    <tr>
-                      <td><i class="bi bi-geo-alt me-2 text-success"></i> Address:</td>
-                      <td>{{ user.address }}</td>
-                    </tr>
-                    <tr>
-                      <td><i class="bi bi-telephone me-2 text-warning"></i> Contact:</td>
-                      <td>{{ user.mobile }}</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <!-- Footer Button -->
-            <div class="card-footer text-center border-0" style="background: rgba(255, 255, 255, 0.08);">
-              <a href="#" class="btn btn-sm text-white px-4"
-                style="background: linear-gradient(90deg, rgba(67,233,123,0.85) 0%, rgba(56,249,215,0.85) 100%); border: none;">
-                <i class="bi bi-person-lines-fill me-1"></i> View Profile
-              </a>
-            </div>
           </div>
 
 
 
 
         </div>
-        <div class="col-4">
+        <div class="col-lg-4 col-sm-12 mb-4">
 
 
           <div class="container">
@@ -189,26 +232,25 @@
 
 
         </div>
-        <div class="col-4">
-          <div class="card mb-4 shadow-lg border-0 rounded-4">
+        <div class="col-lg-4 col-sm-12">
+          <div class="card mb-4 shadow-lg border-0 rounded-4 box-bg">
             <div class="card-body">
-              <h5 class="card-title text-center p-3 rounded-3 text-white fs-5 fw-semibold"
-                style="background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);">
+              <h4 class="card-title text-center p-3 rounded-3 text-white">
                 <i class="bi bi-person-badge"></i> CURATOR / GROUNDMAN
-              </h5>
+              </h4>
               <hr>
-              <div class="accordion accordion-flush" id="accordionExample">
+              <div class="accordion accordion-flush shadow-lg" id="accordionExample">
                 <!-- CURATORS -->
                 <div class="accordion-item border-start border-4" style="border-color: #4fc3f7;">
                   <h2 class="accordion-header">
-                    <button class="accordion-button bg-light fw-bold text-primary" type="button"
+                    <button class="accordion-button fw-bold text-primary" type="button"
                       data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
                       aria-controls="collapseOne">
                       <i class="bi bi-person-check me-2 text-info"></i> CURATORS
                     </button>
                   </h2>
                   <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
+                    <div class="accordion-body border">
                       <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                           <i class="bi bi-check-circle-fill text-primary me-2"></i> Ground Rolling
@@ -224,14 +266,14 @@
                 <!-- GROUNDMAN -->
                 <div class="accordion-item border-start border-4" style="border-color: #81c784;">
                   <h2 class="accordion-header">
-                    <button class="accordion-button collapsed bg-light fw-bold text-success" type="button"
+                    <button class="accordion-button collapsed  fw-bold text-success" type="button"
                       data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false"
                       aria-controls="collapseTwo">
                       <i class="bi bi-person-lines-fill me-2 text-success"></i> GROUNDMAN
                     </button>
                   </h2>
                   <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
+                    <div class="accordion-body border">
                       <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                           <i class="bi bi-check-circle-fill text-success me-2"></i> Field Marking
@@ -470,5 +512,16 @@
   .admin-profile-card-vibrant {
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
+  }
+
+
+  .club-details {
+    font-size: 0.6em !important;
+
+  }
+
+  .club-details .row>div {
+    padding: 1.2em 1em;
+    text-transform: uppercase;
   }
 </style>

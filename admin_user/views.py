@@ -2270,6 +2270,7 @@ def curator_daily_recording_form(request):
                     pp_rolling_speed = request.POST.get("pp_rolling_speed")
                     pp_last_watering_on = request.POST.get("pp_last_watering_on")
                     pp_quantity_of_water = request.POST.get("pp_quantity_of_water")
+                    pp_passes_unit = request.POST.get("pp_passes_unit")
                     pp_time_of_application = request.POST.get("pp_time_of_application")
                     pp_time_roller = request.POST.get("pp_time_roller")
                     pp_mover_machine_type = (request.POST.get('pp_mover_machine_type'))
